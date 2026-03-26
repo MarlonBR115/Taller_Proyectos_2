@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sistema de Generación Óptima de Horarios Académicos en Entornos de Currículo Flexible
 
 ##  Tabla de Contenido
@@ -23,3 +24,4 @@
 Las universidades con currículo flexible enfrentan desafíos críticos en la planificación académica. A diferencia de los modelos rígidos, la variabilidad en la matrícula y las múltiples rutas de aprendizaje generan un escenario de alta complejidad.
 
 ---
+=======
