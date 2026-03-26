@@ -1,17 +1,25 @@
-NOMBRE DEL PROYECTO
-SISTEMA DE GENERACIÓN ÓPTIMA DE HORARIOS ACADÉMICOS EN ENTORNOS DE CURRÍCULO FLEXIBLE 
+# Sistema de Generación Óptima de Horarios Académicos en Entornos de Currículo Flexible
 
-TABLA DE CONTENIDO
-1. Integrantes del equipo
-2. Problemática abordada
+##  Tabla de Contenido
+1. [Integrantes del Equipo](#-integrantes-del-equipo)
+2. [Problemática Abordada](#-problemática-abordada)
+3. [Objetivo del Proyecto](#-objetivo-del-proyecto)
 
-1. INTEGRANTES DEL EQUIPO
-Bonifacio Rojas Marlon
-Espiritu Campos Alejandro
-Fernández Durán Rafael
-Guzman Choque Fabian Enrique
-Quispe Campos Luis Enrique 
+---
 
-2. PROBLEMÁTICA ABORDADA
-Las universidades con currículo flexible enfrentan dificultades significativas en la planificación de horarios debido a la alta variabilidad en la matrícula estudiantil, restricciones académicas y limitaciones de recursos. Este problema complejo de ingeniería se caracteriza por presentar requisitos parcialmente definidos y cambiantes, junto con múltiples restricciones interdependientes.
-Existen conflictos constantes entre la disponibilidad de los actores (estudiantes y docentes) y los recursos físicos o infraestructura. Debido a que no existe una solución única ni trivial para la asignación de cursos, aulas y horarios, el proyecto requiere un enfoque basado en modelado abstracto y toma de decisiones fundamentadas para optimizar la distribución académica.
+##  Integrantes del Equipo
+| Nombre Completo | Rol / Responsabilidad |
+| :--- | :--- |
+| **Bonifacio Rojas, Marlon** | Product Owner |
+| **Espiritu Campos, Alejandro** | Scrum Master |
+| **Fernández Durán, Rafael** | Responsable de Documentación y Calidad |
+| **Guzman Choque, Fabian Enrique** | Responsable de Frontend |
+| **Quispe Campos, Luis Enrique** | Responsable de Backend |
+
+---
+
+##  Problemática Abordada
+
+Las universidades con currículo flexible enfrentan desafíos críticos en la planificación académica. A diferencia de los modelos rígidos, la variabilidad en la matrícula y las múltiples rutas de aprendizaje generan un escenario de alta complejidad.
+
+---
