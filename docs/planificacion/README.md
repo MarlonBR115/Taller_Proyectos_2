@@ -1,1 +1,13 @@
-# Documentaci髇 de planificaci髇
+# Requerimientos
+
+## Funcionales
+- Generaci贸n autom谩tica de horarios
+- Validaci贸n de restricciones
+- Gesti贸n de cursos, docentes, aulas
+- Visualizaci贸n de horarios
+
+## No Funcionales
+- Alto rendimiento
+- Escalabilidad
+- Seguridad
+- Usabilidad
