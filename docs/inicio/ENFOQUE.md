@@ -1,23 +1,30 @@
 # Selección del Enfoque del Proyecto
 
 ## 1. Naturaleza del Problema
-Problema complejo de ingeniería con múltiples restricciones.
+Problema complejo con múltiples restricciones y sin solución única.
 
-## 2. Modelo de Gestión: Enfoque Híbrido
+## 2. Modelo de Gestión: Híbrido
 
 ### Predictivo
-Para hitos y cronograma.
+- Hitos
+- Entregables
+- Cronograma
 
 ### Ágil
-Para desarrollo iterativo del sistema.
+- Iteraciones rápidas
+- Mejora del algoritmo
+- Validación UI
 
 ## 3. Justificación
 
 ### Modelado
-CSP + Optimización combinatoria.
+- CSP (Problema de Restricciones)
+- Optimización combinatoria
 
 ### Arquitectura
-SPA + API REST.
+- SPA + API REST
 
 ### Estándares
-ISO 25010, OWASP, Green Software.
+- ISO 25010
+- OWASP Top 10
+- Green Software
