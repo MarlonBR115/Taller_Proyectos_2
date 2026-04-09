@@ -53,11 +53,11 @@ La estructura actual del repositorio es la siguiente:
 |       `-- README.md
 |-- docs/
 |   |-- declaracion-equipo.md
-|   |-- Declaración de la visión del proyecto.docx
-|   |-- Documento inicial del problema.docx
+|   |-- Declaración de la visión del proyecto.md
+|   |-- Documento inicial del problema.md
 |   |-- Kickoff Project Charter.docx
-|   |-- Lista preliminar de requerimientos funcionales y no funcionales.docx
-|   |-- Selección del enfoque del proyecto.docx
+|   |-- Lista preliminar de requerimientos funcionales y no funcionales.md
+|   |-- Selección del enfoque del proyecto.md
 |   |-- cierre/
 |   |   `-- README.md
 |   |-- ejecucion/
@@ -90,20 +90,20 @@ Descripción general de carpetas:
 
 ## Documentación disponible
 
-Actualmente, el repositorio contiene documentación en formatos `Markdown` y `Word`. Los principales documentos identificados son los siguientes:
+Actualmente, el repositorio ha migrado su documentación al formato `Markdown`. Los principales documentos identificados son los siguientes:
 
 | Documento | Ruta |
 | :--- | :--- |
 | Declaración del equipo del proyecto | [docs/declaracion-equipo.md](docs/declaracion-equipo.md) |
-| Declaración de visión del proyecto | [docs/inicio/VISIÓN.md](docs/inicio/VISIÓN.md) |
-| Versión en Word de la visión del proyecto | [docs/Declaración de la visión del proyecto.docx](docs/Declaración%20de%20la%20visión%20del%20proyecto.docx) |
-| Documento inicial del problema | [docs/inicio/PROBLEMA.md](docs/inicio/PROBLEMA.md) |
-| Versión en Word del problema | [docs/Documento inicial del problema.docx](docs/Documento%20inicial%20del%20problema.docx) |
-| Selección del enfoque del proyecto | [docs/inicio/ENFOQUE.md](docs/inicio/ENFOQUE.md) |
-| Versión en Word del enfoque | [docs/Selección del enfoque del proyecto.docx](docs/Selecci%C3%B3n%20del%20enfoque%20del%20proyecto.docx) |
-| Requerimientos preliminares | [docs/ejecucion/REQUERIMENTOS.md](docs/ejecucion/REQUERIMENTOS.md) |
-| Lista preliminar de requerimientos en Word | [docs/Lista preliminar de requerimientos funcionales y no funcionales.docx](docs/Lista%20preliminar%20de%20requerimientos%20funcionales%20y%20no%20funcionales.docx) |
-| Project Charter | [docs/Kickoff Project Charter.docx](docs/Kickoff%20Project%20Charter.docx) |
+| Declaración de visión del proyecto (Resumen) | [docs/inicio/VISIÓN.md](docs/inicio/VISIÓN.md) |
+| Declaración de visión del proyecto (Detallado) | [docs/Declaración de la visión del proyecto.md](docs/Declaración%20de%20la%20visión%20del%20proyecto.md) |
+| Documento inicial del problema (Resumen) | [docs/inicio/PROBLEMA.md](docs/inicio/PROBLEMA.md) |
+| Documento inicial del problema (Detallado) | [docs/Documento inicial del problema.md](docs/Documento%20inicial%20del%20problema.md) |
+| Selección del enfoque del proyecto (Resumen) | [docs/inicio/ENFOQUE.md](docs/inicio/ENFOQUE.md) |
+| Selección del enfoque del proyecto (Detallado) | [docs/Selección del enfoque del proyecto.md](docs/Selección%20del%20enfoque%20del%20proyecto.md) |
+| Requerimientos preliminares (Resumen) | [docs/ejecucion/REQUERIMENTOS.md](docs/ejecucion/REQUERIMENTOS.md) |
+| Lista preliminar de requerimientos (Completo) | [docs/Lista preliminar de requerimientos funcionales y no funcionales.md](docs/Lista%20preliminar%20de%20requerimientos%20funcionales%20y%20no%20funcionales.md) |
+| Project Charter | [docs/Kickoff Project Charter.md](docs/Kickoff%20Project%20Charter.docx) |
 | Índice de ejecución | [docs/ejecucion/README.md](docs/ejecucion/README.md) |
 | Índice de seguimiento y control | [docs/seguimiento_control/README.md](docs/seguimiento_control/README.md) |
 | Índice de cierre | [docs/cierre/README.md](docs/cierre/README.md) |
