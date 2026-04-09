@@ -1,6 +1,6 @@
 # Declaración de la Visión del Proyecto
 
-Consolidar una plataforma web inteligente y sostenible que automatice la generación de horarios académicos para entornos de currículo flexible...
+Consolidar una plataforma web inteligente y sostenible que automatice la generación de horarios académicos para entornos de currículo flexible.
 
 ## Atributos de Valor
 
