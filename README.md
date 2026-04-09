@@ -4,11 +4,9 @@
 
 Este repositorio corresponde al proyecto universitario desarrollado en el curso **Taller de Proyectos 2**. En el **Sprint 0: Inicio del proyecto**, el propósito principal es organizar adecuadamente el repositorio, consolidar la documentación inicial y establecer una base formal para el trabajo colaborativo del equipo.
 
-El contenido actual del repositorio está orientado a la definición del problema, la visión inicial del proyecto, la organización documental y la identificación preliminar de requerimientos. En consecuencia, este `README.md` se presenta como una portada académica del proyecto y como punto de acceso a los documentos disponibles en la carpeta [docs/](docs/).
+El contenido actual del repositorio está orientado a la definición del problema, la visión inicial del proyecto, la organización documental y la identificación preliminar de requerimientos.
 
 ## Integrantes del equipo y roles
-
-La organización del equipo se toma como referencia de [docs/declaracion-equipo.md](docs/declaracion-equipo.md).
 
 | Integrante | Rol |
 | :--- | :--- |
@@ -22,7 +20,7 @@ La organización del equipo se toma como referencia de [docs/declaracion-equipo.
 
 Las universidades que operan con esquemas de currículo flexible enfrentan dificultades en la planificación académica debido a la variabilidad en la matrícula, la disponibilidad limitada de recursos y la coexistencia de múltiples restricciones que deben satisfacerse simultáneamente.
 
-Esta situación puede generar cruces de horarios, uso ineficiente de aulas, dificultades en la organización docente y limitaciones para que los estudiantes estructuren adecuadamente su carga académica. Como referencia de la formulación inicial del problema, puede revisarse [docs/inicio/PROBLEMA.md](docs/inicio/PROBLEMA.md) y [docs/Documento inicial del problema.docx](docs/Documento%20inicial%20del%20problema.docx).
+Esta situación puede generar cruces de horarios, uso ineficiente de aulas, dificultades en la organización docente y limitaciones para que los estudiantes estructuren adecuadamente su carga académica. Como referencia de la formulación inicial del problema, puede revisarse [docs/inicio/PROBLEMA.md](docs/inicio/PROBLEMA.md) y [docs/Documento inicial del problema.docx](docs/Documento%20inicial%20del%20problema.md).
 
 ## Objetivo del proyecto
 
@@ -108,9 +106,3 @@ Actualmente, el repositorio ha migrado su documentación al formato `Markdown`. 
 | Índice de seguimiento y control | [docs/seguimiento_control/README.md](docs/seguimiento_control/README.md) |
 | Índice de cierre | [docs/cierre/README.md](docs/cierre/README.md) |
 | Índice de otros documentos | [docs/Otros/README.md](docs/Otros/README.md) |
-
-## Observaciones finales
-
-El repositorio presenta una base adecuada para la evaluación del Sprint 0, ya que cuenta con una estructura reconocible, documentación inicial disponible y una distribución clara entre componentes documentales, frontend y backend.
-
-Se ha mantenido el enfoque en organización y documentación, evitando incorporar detalles de tecnologías, arquitectura o implementación futura que aún no han sido definidos oficialmente por el equipo. Asimismo, se preserva la estructura existente del repositorio sin eliminar documentos ni alterar de forma agresiva el trabajo previo.
