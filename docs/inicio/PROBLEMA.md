@@ -29,19 +29,13 @@ La dificultad para generar horarios académicos óptimos que satisfagan todas la
 - Disponibilidad de aulas
 - No cruce de horarios
 
-## 6. Ambigüedades del problema
-- No se especifica cómo priorizar restricciones
-- No está claro si todas las restricciones tienen el mismo peso
-- No se define qué significa exactamente “horario óptimo”
-- No se indica cómo manejar conflictos entre estudiantes y docentes
-
-## 7. Supuestos iniciales
+## 6. Supuestos iniciales
 - Todos los datos están disponibles
 - Los estudiantes cumplen prerrequisitos
 - Las aulas tienen capacidad suficiente
 - Las restricciones más importantes son las académicas
 
-## 8. Naturaleza del problema
+## 7. Naturaleza del problema
 - Tiene muchas variables relacionadas
 - No hay una única solución
 - Requiere optimización
