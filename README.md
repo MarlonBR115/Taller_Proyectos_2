@@ -91,3 +91,28 @@ Actualmente, el proyecto se encuentra en una fase de inicio y organización. En 
     |-- README.md
     `-- tests/
         `-- README.md
+```
+## 7. 📚 Documentación del Proyecto
+
+El repositorio ha migrado su documentación al formato `Markdown`. Para facilitar la navegación, los documentos se han clasificado en las siguientes categorías:
+
+### 📌 Documentos de Gestión e Inicio
+* 👥 [Declaración del equipo del proyecto](docs/declaracion-equipo.md)
+* 📜 [Project Charter](docs/Kickoff%20Project%20Charter.docx)
+* 🔭 [Declaración de visión del proyecto (Detallado)](docs/Declaración%20de%20la%20visión%20del%20proyecto.md)
+* 🔭 [Declaración de visión del proyecto (Resumen)](docs/inicio/VISIÓN.md)
+* 🚧 [Documento inicial del problema (Detallado)](docs/Documento%20inicial%20del%20problema.md)
+* 🚧 [Documento inicial del problema (Resumen)](docs/inicio/PROBLEMA.md)
+
+### ⚙️ Enfoque y Requerimientos
+* 🎯 [Selección del enfoque del proyecto (Detallado)](docs/Selección%20del%20enfoque%20del%20proyecto.md)
+* 🎯 [Selección del enfoque del proyecto (Resumen)](docs/inicio/ENFOQUE.md)
+* 📋 [Lista preliminar de requerimientos (Completo)](docs/Lista%20preliminar%20de%20requerimientos%20funcionales%20y%20no%20funcionales.md)
+* 📋 [Requerimientos preliminares (Resumen)](docs/ejecucion/REQUERIMENTOS.md)
+* ⚠️ [Supuestos y restricciones](docs/Supuestos%20y%20restricciones.md)
+
+### 📁 Índices por Fase
+* 🚀 [Índice de ejecución](docs/ejecucion/README.md)
+* 📊 [Índice de seguimiento y control](docs/seguimiento_control/README.md)
+* 🏁 [Índice de cierre](docs/cierre/README.md)
+* 📄 [Otros documentos](docs/Otros/README.md)
