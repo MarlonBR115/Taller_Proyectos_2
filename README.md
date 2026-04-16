@@ -1,108 +1,93 @@
 # Sistema de Generación Óptima de Horarios Académicos en Entornos de Currículo Flexible
 
-## Descripción general
+![Estado: Sprint 0](https://img.shields.io/badge/Estado-Sprint%200%3A%20Inicio-blue)
+![Curso: Taller de Proyectos 2](https://img.shields.io/badge/Curso-Taller%20de%20Proyectos%202-brightgreen)
 
-Este repositorio corresponde al proyecto universitario desarrollado en el curso **Taller de Proyectos 2**. En el **Sprint 0: Inicio del proyecto**, el propósito principal es organizar adecuadamente el repositorio, consolidar la documentación inicial y establecer una base formal para el trabajo colaborativo del equipo.
+## 📖 Índice
 
-El contenido actual del repositorio está orientado a la definición del problema, la visión inicial del proyecto, la organización documental y la identificación preliminar de requerimientos.
+1. [Descripción General](#1-descripción-general)
+2. [Problemática Abordada](#2-problemática-abordada)
+3. [Objetivo del Proyecto](#3-objetivo-del-proyecto)
+4. [Equipo de Trabajo y Roles](#4-equipo-de-trabajo-y-roles)
+5. [Estado Actual (Sprint 0)](#5-estado-actual-sprint-0)
+6. [Estructura del Repositorio](#6-estructura-del-repositorio)
+7. [📚 Documentación del Proyecto](#7--documentación-del-proyecto)
 
-## Integrantes del equipo y roles
+---
 
-| Integrante | Rol |
-| :--- | :--- |
-| Marlon Bonifacio Rojas | Product Owner |
-| Alejandro Espíritu Campos | Scrum Master |
-| Fabian Enrique Guzman Choque | Responsable de Frontend |
-| Luis Enrique Quispe Campos | Responsable de Backend |
-| Rafael Fernández Durán | Responsable de Documentación y Calidad |
+## 1. Descripción General
+Este repositorio corresponde al proyecto universitario desarrollado en el curso **Taller de Proyectos 2**. En el **Sprint 0: Inicio del proyecto**, el propósito principal es organizar adecuadamente el repositorio, consolidar la documentación inicial y establecer una base formal para el trabajo colaborativo del equipo. 
 
-## Problemática abordada
+El contenido actual está orientado a la definición del problema, la visión inicial del proyecto, la organización documental y la identificación preliminar de requerimientos.
 
+---
+
+## 2. Problemática Abordada
 Las universidades que operan con esquemas de currículo flexible enfrentan dificultades en la planificación académica debido a la variabilidad en la matrícula, la disponibilidad limitada de recursos y la coexistencia de múltiples restricciones que deben satisfacerse simultáneamente.
 
-Esta situación puede generar cruces de horarios, uso ineficiente de aulas, dificultades en la organización docente y limitaciones para que los estudiantes estructuren adecuadamente su carga académica. Como referencia de la formulación inicial del problema, puede revisarse [docs/inicio/PROBLEMA.md](docs/inicio/PROBLEMA.md) y [docs/Documento inicial del problema.docx](docs/Documento%20inicial%20del%20problema.md).
+Esta situación puede generar:
+* Cruces de horarios.
+* Uso ineficiente de aulas.
+* Dificultades en la organización docente.
+* Limitaciones para que los estudiantes estructuren adecuadamente su carga académica.
 
-## Objetivo del proyecto
+---
 
+## 3. Objetivo del Proyecto
 Desarrollar una propuesta orientada a la generación óptima de horarios académicos en entornos de currículo flexible, considerando las restricciones académicas y operativas identificadas en la etapa inicial del proyecto.
 
 En el contexto específico del **Sprint 0**, el objetivo inmediato no es implementar el sistema completo, sino consolidar la documentación base, la organización del equipo y la estructura del repositorio para facilitar el desarrollo posterior del proyecto.
 
-## Estado actual del Sprint 0
+---
 
+## 4. Equipo de Trabajo y Roles
+
+| Integrante | Rol |
+| :--- | :--- |
+| **Marlon Bonifacio Rojas** | Product Owner |
+| **Alejandro Espíritu Campos** | Scrum Master |
+| **Fabian Enrique Guzman Choque** | Responsable de Frontend |
+| **Luis Enrique Quispe Campos** | Responsable de Backend |
+| **Rafael Fernández Durán** | Responsable de Documentación y Calidad |
+
+*(Información extraída de la [Declaración del equipo del proyecto](docs/declaracion-equipo.md))*
+
+---
+
+## 5. Estado Actual (Sprint 0)
 Actualmente, el proyecto se encuentra en una fase de inicio y organización. En esta etapa se prioriza:
 
-- la definición y presentación formal del problema;
-- la declaración de visión del proyecto;
-- la identificación preliminar de requerimientos;
-- la formalización de roles, normas y compromisos del equipo;
-- la organización documental del repositorio para revisión académica.
+- La definición y presentación formal del problema.
+- La declaración de visión del proyecto.
+- La identificación preliminar de requerimientos.
+- La formalización de roles, normas y compromisos del equipo.
+- La organización documental del repositorio para revisión académica.
 
-## Estructura del repositorio
+---
 
-La estructura actual del repositorio es la siguiente:
+## 6. Estructura del Repositorio
 
 ```text
 .
 |-- README.md
-|-- backend/
+|-- backend/                 # Componente de lógica y servicios
 |   |-- README.md
 |   `-- tests/
 |       `-- README.md
-|-- docs/
+|-- docs/                    # Documentación principal del proyecto
 |   |-- declaracion-equipo.md
 |   |-- Declaración de la visión del proyecto.md
 |   |-- Documento inicial del problema.md
 |   |-- Kickoff Project Charter.docx
 |   |-- Lista preliminar de requerimientos funcionales y no funcionales.md
 |   |-- Selección del enfoque del proyecto.md
-|   |-- cierre/
-|   |   `-- README.md
-|   |-- ejecucion/
-|   |   |-- README.md
-|   |   `-- REQUERIMENTOS.md
-|   |-- inicio/
-|   |   |-- ENFOQUE.md
-|   |   |-- PROBLEMA.md
-|   |   `-- VISIÓN.md
-|   |-- Otros/
-|   |   `-- README.md
-|   `-- seguimiento_control/
-|       `-- README.md
-`-- frontend/
+|   |-- Supuestos y restricciones.md
+|   |-- cierre/              # Documentación de cierre
+|   |-- ejecucion/           # Requerimientos y materiales de ejecución
+|   |-- inicio/              # Documentos base del Sprint 0
+|   |-- Otros/               # Documentos complementarios
+|   `-- seguimiento_control/ # Seguimiento y control del proyecto
+`-- frontend/                # Componente de interfaz de usuario
     |-- README.md
     `-- tests/
         `-- README.md
-```
-
-Descripción general de carpetas:
-
-- `docs/`: documentación principal del proyecto.
-- `docs/inicio/`: documentos base del Sprint 0, incluyendo visión, problema y enfoque.
-- `docs/ejecucion/`: documentos vinculados a requerimientos y materiales de ejecución.
-- `docs/seguimiento_control/`: espacio destinado al seguimiento y control del proyecto.
-- `docs/cierre/`: espacio reservado para documentación de cierre.
-- `docs/Otros/`: documentos complementarios.
-- `backend/`: carpeta base del componente de backend.
-- `frontend/`: carpeta base del componente de frontend.
-
-## Documentación disponible
-
-Actualmente, el repositorio ha migrado su documentación al formato `Markdown`. Los principales documentos identificados son los siguientes:
-
-| Documento | Ruta |
-| :--- | :--- |
-| Declaración del equipo del proyecto | [docs/declaracion-equipo.md](docs/declaracion-equipo.md) |
-| Declaración de visión del proyecto (Resumen) | [docs/inicio/VISIÓN.md](docs/inicio/VISIÓN.md) |
-| Declaración de visión del proyecto (Detallado) | [docs/Declaración de la visión del proyecto.md](docs/Declaración%20de%20la%20visión%20del%20proyecto.md) |
-| Documento inicial del problema (Resumen) | [docs/inicio/PROBLEMA.md](docs/inicio/PROBLEMA.md) |
-| Documento inicial del problema (Detallado) | [docs/Documento inicial del problema.md](docs/Documento%20inicial%20del%20problema.md) |
-| Selección del enfoque del proyecto (Resumen) | [docs/inicio/ENFOQUE.md](docs/inicio/ENFOQUE.md) |
-| Selección del enfoque del proyecto (Detallado) | [docs/Selección del enfoque del proyecto.md](docs/Selección%20del%20enfoque%20del%20proyecto.md) |
-| Requerimientos preliminares (Resumen) | [docs/ejecucion/REQUERIMENTOS.md](docs/ejecucion/REQUERIMENTOS.md) |
-| Lista preliminar de requerimientos (Completo) | [docs/Lista preliminar de requerimientos funcionales y no funcionales.md](docs/Lista%20preliminar%20de%20requerimientos%20funcionales%20y%20no%20funcionales.md) |
-| Project Charter | [docs/Kickoff Project Charter.md](docs/Kickoff%20Project%20Charter.docx) |
-| Índice de ejecución | [docs/ejecucion/README.md](docs/ejecucion/README.md) |
-| Índice de seguimiento y control | [docs/seguimiento_control/README.md](docs/seguimiento_control/README.md) |
-| Índice de cierre | [docs/cierre/README.md](docs/cierre/README.md) |
-| Índice de otros documentos | [docs/Otros/README.md](docs/Otros/README.md) |
