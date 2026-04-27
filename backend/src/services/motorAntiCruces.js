@@ -49,6 +49,10 @@ function validarCrucesHorario(bloques = []) {
   };
 }
 
+function validateSchedule(schedule = []) {
+  return validarCrucesHorario(schedule);
+}
+
 function normalizarBloque(bloque, indice) {
   const id = bloque?.id ?? `BLOQUE_${indice + 1}`;
   const inicioMinutos = convertirHoraAMinutos(bloque?.horaInicio);
@@ -143,5 +147,6 @@ function crearConflictoInvalido(bloque) {
 
 module.exports = {
   TIPOS_CONFLICTO,
+  validateSchedule,
   validarCrucesHorario
 };

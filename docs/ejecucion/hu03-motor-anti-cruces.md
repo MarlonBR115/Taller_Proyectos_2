@@ -1,34 +1,44 @@
 # HU03 - Motor Anti-Cruces
 
-## Proposito
-El Motor Anti-Cruces valida una propuesta de programacion academica antes de que sea aceptada por el generador u optimizador de horarios. Su responsabilidad es detectar solapamientos reales entre docentes, aulas y grupos en un mismo dia y rango horario.
+## Proposito del modulo
+El Motor Anti-Cruces valida una propuesta de horario academico y detecta conflictos de solapamiento entre recursos criticos: docentes, aulas y grupos/secciones. Su objetivo es apoyar la regla de no cruce definida para el prototipo de generacion optima de horarios.
 
-## Alcance
-- Validar bloques horarios ya propuestos por el generador.
-- Reportar conflictos verificables con tipo, severidad, mensaje y bloques involucrados.
-- Mantener la logica como modulo reutilizable del backend.
-- No resolver automaticamente los cruces ni optimizar la asignacion final.
-- No implementar interfaz grafica.
+## Alcance de HU03
+- Validar listas de bloques horarios generadas o propuestas por otros modulos.
+- Reportar conflictos con tipo, severidad, mensaje y bloques involucrados.
+- Mantener una implementacion reutilizable en backend.
+- No resolver automaticamente los conflictos detectados.
+- No implementar UI ni optimizacion del modelo.
 
-## Entradas esperadas
-Lista de bloques horarios con esta estructura base:
+## Restricciones academicas que valida
+- `CRUCE_DOCENTE`: un docente no puede dictar dos clases solapadas en el mismo dia.
+- `CRUCE_AULA`: un aula no puede estar asignada a dos clases solapadas en el mismo dia.
+- `CRUCE_GRUPO`: un grupo o seccion no puede tener dos clases solapadas en el mismo dia.
+- `BLOQUE_INVALIDO`: un bloque no es valido si no tiene dia u horas validas, o si `horaInicio >= horaFin`.
+
+## Estructura esperada de entrada
+La funcion principal `validateSchedule(schedule)` recibe un arreglo de bloques horarios:
 
 ```json
-{
-  "id": "H001",
-  "cursoId": "CUR001",
-  "cursoNombre": "Algoritmos",
-  "docenteId": "DOC001",
-  "aulaId": "AULA101",
-  "grupoId": "G1",
-  "dia": "LUNES",
-  "horaInicio": "08:00",
-  "horaFin": "10:00"
-}
+[
+  {
+    "id": "H001",
+    "cursoId": "CUR001",
+    "cursoNombre": "Algoritmos",
+    "docenteId": "DOC001",
+    "aulaId": "AULA101",
+    "grupoId": "G1",
+    "dia": "LUNES",
+    "horaInicio": "08:00",
+    "horaFin": "10:00"
+  }
+]
 ```
 
-## Salidas esperadas
-El motor devuelve un resumen de validacion:
+Las horas deben usar formato `HH:MM` de 24 horas.
+
+## Estructura esperada de salida
+El motor devuelve un objeto verificable:
 
 ```json
 {
@@ -45,38 +55,100 @@ El motor devuelve un resumen de validacion:
 }
 ```
 
-## Restricciones que valida
-- `CRUCE_DOCENTE`: un docente no puede dictar dos clases solapadas en el mismo dia.
-- `CRUCE_AULA`: un aula no puede ser usada por dos clases solapadas en el mismo dia.
-- `CRUCE_GRUPO`: un grupo o seccion no puede recibir dos clases solapadas en el mismo dia.
-- Solapamiento horario: dos bloques se cruzan cuando comparten dia y sus rangos se intersectan.
-- `BLOQUE_INVALIDO`: un bloque es invalido si falta informacion minima o si `horaInicio >= horaFin`.
+## Explicacion simple del algoritmo
+1. Verifica que la entrada sea una lista de bloques.
+2. Normaliza cada bloque: dia en mayusculas y horas convertidas a minutos.
+3. Separa los bloques invalidos y los reporta como conflictos.
+4. Compara cada par de bloques validos.
+5. Dos bloques se consideran solapados si tienen el mismo dia y sus rangos horarios se intersectan.
+6. Cuando existe solapamiento, compara docente, aula y grupo para generar los conflictos correspondientes.
 
-## Casos de uso verificables
-- Como generador de horarios, quiero validar una propuesta completa para saber si puede pasar a evaluacion.
-- Como optimizador, quiero recibir una lista de conflictos para penalizar o descartar soluciones inviables.
-- Como responsable academico, quiero identificar el recurso exacto que causa un cruce.
+## Casos que detecta
+- Docente asignado a dos clases en el mismo intervalo.
+- Aula asignada a dos clases simultaneas.
+- Grupo o seccion con dos clases al mismo tiempo.
+- Bloques con horas iguales, invertidas o formato horario invalido.
+- Multiples conflictos en una misma validacion.
 
-## Criterios de aceptacion
-- Un horario sin cruces devuelve `valido: true` y `totalConflictos: 0`.
-- Dos clases del mismo docente que se solapan el mismo dia generan `CRUCE_DOCENTE`.
-- Dos clases en la misma aula que se solapan el mismo dia generan `CRUCE_AULA`.
-- Dos clases del mismo grupo que se solapan el mismo dia generan `CRUCE_GRUPO`.
-- El mismo recurso en dias distintos no genera conflicto.
-- Bloques consecutivos como `08:00-10:00` y `10:00-12:00` no generan conflicto.
-- Un bloque con `horaInicio` mayor o igual que `horaFin` genera `BLOQUE_INVALIDO`.
+## Casos que no considera como cruce
+- Clases del mismo recurso en dias diferentes.
+- Clases consecutivas, por ejemplo `08:00-10:00` y `10:00-12:00`.
+- Preferencias de docentes o estudiantes, porque corresponden a restricciones blandas.
+- Capacidad, tipo de aula o prerrequisitos, porque pertenecen a otros modulos del modelo.
 
-## Casos borde
-- Horas con formato distinto de `HH:MM` se consideran invalidas.
-- Recursos vacios no generan cruce de recurso, pero el bloque puede seguir participando en otros cruces si su horario es valido.
-- Si dos bloques comparten docente, aula y grupo en el mismo solapamiento, el motor reporta los tres conflictos porque afectan restricciones distintas.
+## Ejemplo de entrada con conflicto
+```json
+[
+  {
+    "id": "H001",
+    "cursoId": "CUR001",
+    "cursoNombre": "Algoritmos",
+    "docenteId": "DOC001",
+    "aulaId": "AULA101",
+    "grupoId": "G1",
+    "dia": "LUNES",
+    "horaInicio": "08:00",
+    "horaFin": "10:00"
+  },
+  {
+    "id": "H002",
+    "cursoId": "CUR002",
+    "cursoNombre": "Base de Datos",
+    "docenteId": "DOC001",
+    "aulaId": "AULA102",
+    "grupoId": "G2",
+    "dia": "LUNES",
+    "horaInicio": "09:00",
+    "horaFin": "11:00"
+  }
+]
+```
 
-## Relacion con el generador y el optimizador
-El generador puede invocar el motor despues de construir una propuesta de horario para filtrar soluciones que incumplen restricciones duras. El optimizador puede usar `totalConflictos` y la lista de conflictos como penalizacion objetiva, priorizando soluciones con cero cruces antes de aplicar criterios blandos como preferencias docentes o distribucion equilibrada.
+## Ejemplo de salida con conflictos
+```json
+{
+  "valido": false,
+  "totalConflictos": 1,
+  "conflictos": [
+    {
+      "tipo": "CRUCE_DOCENTE",
+      "severidad": "ALTA",
+      "mensaje": "El docente DOC001 tiene clases solapadas el dia LUNES: 08:00-10:00 y 09:00-11:00.",
+      "bloquesInvolucrados": ["H001", "H002"]
+    }
+  ]
+}
+```
 
-## Evidencia de pruebas
-Las pruebas unitarias se encuentran en `backend/tests/motorAntiCruces.test.js` y se ejecutan desde `backend` con:
+## Pruebas automatizadas
+Las pruebas unitarias estan en `backend/tests/motorAntiCruces.test.js`.
+
+Comando:
 
 ```bash
+cd backend
 npm test
 ```
+
+Resultado esperado:
+
+```text
+tests 11
+pass 11
+fail 0
+```
+
+## Requisitos no funcionales asociados
+- Rendimiento esperado: el modulo esta disenado para validar listas pequenas o medianas de bloques horarios propias de un prototipo academico. Su rendimiento debera medirse con conjuntos de datos mas amplios en etapas posteriores.
+- Mantenibilidad: la logica esta separada en un servicio puro, sin dependencia de Express, base de datos ni UI.
+- Escalabilidad basica: el algoritmo actual compara pares de bloques, suficiente para el Sprint 1; si el volumen crece, puede optimizarse agrupando por dia y recurso.
+- Trazabilidad de conflictos: cada conflicto incluye tipo, severidad, mensaje y `bloquesInvolucrados` para facilitar depuracion y evidencia academica.
+
+## Limitaciones actuales
+- No valida capacidad de aulas, tipo de aula, disponibilidad declarada de docentes ni prerrequisitos.
+- No corrige automaticamente los cruces.
+- No prioriza restricciones blandas.
+- No expone aun una ruta HTTP porque el backend Express todavia no esta implementado en el repositorio.
+
+## Posible integracion futura
+El generador de horarios puede llamar `validateSchedule(schedule)` para descartar propuestas con restricciones duras incumplidas. El optimizador puede usar `totalConflictos` como penalizacion objetiva y la lista `conflictos` para explicar por que una solucion no es aceptable.
