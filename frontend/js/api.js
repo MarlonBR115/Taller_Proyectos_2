@@ -1,5 +1,5 @@
 // Wrapper para las llamadas a la API
-const API_BASE_URL = 'http://localhost/Generador_horarios/backend/public/api';
+const API_BASE_URL = 'http://localhost:3000/api';
 
 export const api = {
     async request(endpoint, method = 'GET', data = null) {
