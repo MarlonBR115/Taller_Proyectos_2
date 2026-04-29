@@ -1,0 +1,12 @@
+{
+  "name": "backend-horarios-academicos",
+  "version": "0.1.0",
+  "description": "Backend del prototipo de generacion optima de horarios academicos.",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
