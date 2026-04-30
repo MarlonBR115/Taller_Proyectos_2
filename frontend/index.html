@@ -1,92 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Horarios - Dashboard</title>
-    <!-- Fuentes Google -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OptiClass - Generador de Horarios</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <!-- Iconos FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- CSS Propio -->
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="app-container">
-        <!-- Sidebar Navigation -->
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <i class="fa-solid fa-calendar-days logo-icon"></i>
-                <h2>OptiClass</h2>
-            </div>
-            <ul class="nav-links">
-                <li class="active" data-view="dashboard">
-                    <i class="fa-solid fa-chart-pie"></i> Panel Principal
-                </li>
-                <li data-view="teachers">
-                    <i class="fa-solid fa-chalkboard-user"></i> Profesores
-                </li>
-                <li data-view="courses">
-                    <i class="fa-solid fa-book"></i> Materias
-                </li>
-                <li data-view="rooms">
-                    <i class="fa-solid fa-building"></i> Aulas
-                </li>
-                <li data-view="groups">
-                    <i class="fa-solid fa-users"></i> Grupos
-                </li>
-                <li data-view="terms">
-                    <i class="fa-solid fa-calendar-check"></i> Periodos
-                </li>
-                <li class="separator"></li>
-                <li data-view="generate" class="action-link">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Generar Horario
-                </li>
-            </ul>
-        </nav>
-
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <header class="topbar">
-                <h1 id="view-title">Panel Principal</h1>
-                <div class="user-profile">
-                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
-                    <span>Administrador</span>
-                </div>
-            </header>
-
-            <div class="content-area" id="content-area">
-                <!-- El contenido dinámico se inyectará aquí mediante JS -->
-                <div class="welcome-card glass-panel">
-                    <h2>Bienvenido a OptiClass</h2>
-                    <p>Selecciona una opción del menú lateral para gestionar los datos base antes de generar horarios.</p>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- Modal Genérico para CRUD -->
-    <div class="modal-overlay" id="crud-modal">
-        <div class="modal-content glass-panel">
-            <div class="modal-header">
-                <h3 id="modal-title">Agregar Registro</h3>
-                <button class="close-btn" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="modal-body">
-                <form id="crud-form">
-                    <!-- Los inputs dinámicos se inyectarán aquí -->
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="cancel-modal">Cancelar</button>
-                <button type="submit" form="crud-form" class="btn btn-primary" id="save-modal">Guardar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modulo JS Principal -->
-    <script type="module" src="js/app.js"></script>
-</body>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

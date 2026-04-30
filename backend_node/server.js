@@ -26,6 +26,22 @@ const queryDB = async (sql, params = []) => {
     return rows;
 };
 
+// Probar conexión a la BD al iniciar
+pool.getConnection()
+    .then(conn => {
+        console.log('✅ Conectado exitosamente a la base de datos MySQL!');
+        conn.release();
+    })
+    .catch(err => {
+        console.log('\n❌ ERROR CRÍTICO DE BASE DE DATOS ❌');
+        console.log('No se pudo conectar a MySQL. Detalles del error:');
+        console.log(err.message);
+        console.log('\nPor favor, verifica lo siguiente:');
+        console.log('1. XAMPP/MySQL está encendido y corriendo en el puerto 3306.');
+        console.log('2. Has ejecutado "node init_db.js" para crear las tablas.');
+        console.log('--------------------------------------------------\n');
+    });
+
 // ==========================================
 // CRUD RUTAS
 // ==========================================
@@ -83,8 +99,8 @@ app.get('/api/courses', async (req, res) => {
 
 app.post('/api/courses', async (req, res) => {
     try {
-        const { name, credits, weekly_hours } = req.body;
-        const result = await pool.execute("INSERT INTO courses (name, credits, weekly_hours) VALUES (?, ?, ?)", [name, credits, weekly_hours]);
+        const { code, name, credits, weekly_hours } = req.body;
+        const result = await pool.execute("INSERT INTO courses (code, name, credits, weekly_hours) VALUES (?, ?, ?, ?)", [code, name, credits, weekly_hours]);
         res.json({ success: true, message: 'Course created successfully', id: result[0].insertId });
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
@@ -93,8 +109,8 @@ app.post('/api/courses', async (req, res) => {
 
 app.put('/api/courses/:id', async (req, res) => {
     try {
-        const { name, credits, weekly_hours } = req.body;
-        await pool.execute("UPDATE courses SET name = ?, credits = ?, weekly_hours = ? WHERE id = ?", [name, credits, weekly_hours, req.params.id]);
+        const { code, name, credits, weekly_hours } = req.body;
+        await pool.execute("UPDATE courses SET code = ?, name = ?, credits = ?, weekly_hours = ? WHERE id = ?", [code, name, credits, weekly_hours, req.params.id]);
         res.json({ success: true, message: 'Course updated successfully' });
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });

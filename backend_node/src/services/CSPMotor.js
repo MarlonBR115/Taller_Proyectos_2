@@ -24,18 +24,41 @@ class CSPOptimizer {
     // Validar cada hora del bloque requerido
     for (const slot of timeSlots) {
       // 3. Validar choque de aula
-      const roomKey = `${room.room_id}_${day}_${slot}`;
+      const roomKey = `${room.id}_${day}_${slot}`;
       if (this.scheduleMatrix[roomKey]) return false;
 
       // 4. Validar choque de profesor
       const teacherKey = `${group.teacher_id}_${day}_${slot}`;
       if (this.teacherSchedule[teacherKey]) return false;
 
-      // 5. Validar disponibilidad (HU02: si tenemos la data, validamos que el profe pueda)
-      // if (!this.isTeacherAvailable(group.teacher_id, day, slot)) return false;
+      // 5. Validar disponibilidad (Turnos del profesor)
+      if (!this.isTeacherAvailable(group.teacher_id, slot)) return false;
     }
 
     return true;
+  }
+
+  isTeacherAvailable(teacherId, slot) {
+    const teacher = this.teachers.find(t => t.id === teacherId);
+    if (!teacher || !teacher.availability) return true; // Si no hay data, asume disponible
+    
+    let shifts = [];
+    try {
+        shifts = typeof teacher.availability === 'string' ? JSON.parse(teacher.availability) : teacher.availability;
+        if (typeof shifts === 'string') shifts = JSON.parse(shifts); // doble parse por si acaso
+    } catch(e) {
+        return true;
+    }
+    
+    if (!Array.isArray(shifts) || shifts.length === 0) return true;
+
+    const hour = parseInt(slot);
+    let currentShift = '';
+    if (hour >= 8 && hour < 13) currentShift = 'Mañana';
+    else if (hour >= 13 && hour < 18) currentShift = 'Tarde';
+    else if (hour >= 18 && hour <= 22) currentShift = 'Noche';
+
+    return shifts.includes(currentShift);
   }
 
   // --- MOTOR DE BÚSQUEDA (Backtracking) ---
@@ -94,7 +117,7 @@ class CSPOptimizer {
   // Métodos auxiliares para marcar ocupación y liberación
   markAsOccupied(group, room, day, timeSlots) {
     for (const slot of timeSlots) {
-      const roomKey = `${room.room_id}_${day}_${slot}`;
+      const roomKey = `${room.id}_${day}_${slot}`;
       const teacherKey = `${group.teacher_id}_${day}_${slot}`;
       this.scheduleMatrix[roomKey] = true;
       this.teacherSchedule[teacherKey] = true;
@@ -103,7 +126,7 @@ class CSPOptimizer {
 
   markAsFree(group, room, day, timeSlots) {
     for (const slot of timeSlots) {
-      const roomKey = `${room.room_id}_${day}_${slot}`;
+      const roomKey = `${room.id}_${day}_${slot}`;
       const teacherKey = `${group.teacher_id}_${day}_${slot}`;
       delete this.scheduleMatrix[roomKey];
       delete this.teacherSchedule[teacherKey];
