@@ -116,3 +116,35 @@ El repositorio ha migrado su documentación al formato `Markdown`. Para facilita
 * 📊 [Índice de seguimiento y control](docs/seguimiento_control/README.md)
 * 🏁 [Índice de cierre](docs/cierre/README.md)
 * 📄 [Otros documentos](docs/Otros/README.md)
+
+---
+
+## 8. 🚀 Guía Rápida de Inicio
+
+El proyecto está dividido en un Backend (Node.js/Express) y un Frontend (React/Vite). Para probar la aplicación, necesitas ejecutar ambos entornos.
+
+### Requisitos previos
+- Node.js y npm instalados.
+- Base de datos MySQL en funcionamiento (puerto 3306, usuario `root`, sin contraseña por defecto).
+
+### 1. Iniciar el Backend
+Desde la raíz del proyecto, abre una terminal y ejecuta los siguientes comandos para configurar la base de datos e iniciar el servidor:
+
+```bash
+cd backend_node
+npm install
+node init_db.js      # Crea la estructura de la base de datos
+node seed_db.js      # Opcional: inserta datos de prueba
+node server.js       # Opcional: o usa el archivo start_node.bat en la raíz
+```
+*(El backend correrá en `http://localhost:3000`)*
+
+### 2. Iniciar el Frontend
+Abre una **nueva terminal** desde la raíz del proyecto y ejecuta:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+*(El frontend correrá en `http://localhost:5173/`, donde podrás interactuar con la interfaz)*
