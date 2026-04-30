@@ -20,7 +20,6 @@ const CrudView = ({ config }) => {
       const res = await fetch(`${API_BASE}/${config.endpoint}`);
       if (!res.ok) throw new Error('Network response was not ok');
       const result = await res.json();
-      // Handle array or wrapped response
       setData(Array.isArray(result) ? result : (result.data || []));
     } catch (err) {
       console.error('Error fetching data:', err);
@@ -42,12 +41,10 @@ const CrudView = ({ config }) => {
   const openModal = (item = null) => {
     setEditingItem(item);
     
-    // Initialize form data
     const initialData = {};
     config.columns.forEach(col => {
       if (col.key !== 'id') {
         if (item) {
-          // Handle JSON arrays for checkboxes
           if (col.type === 'checkboxes' && typeof item[col.key] === 'string') {
             try {
               let parsed = JSON.parse(item[col.key]);
@@ -82,11 +79,10 @@ const CrudView = ({ config }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Format payload
     const payload = { ...formData };
     config.columns.forEach(col => {
       if (col.type === 'checkboxes') {
-        payload[col.key] = JSON.stringify(payload[col.key]); // Backend expects JSON string
+        payload[col.key] = JSON.stringify(payload[col.key]);
       }
     });
 

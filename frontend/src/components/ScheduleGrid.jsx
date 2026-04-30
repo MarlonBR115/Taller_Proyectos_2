@@ -6,7 +6,6 @@ const START_HOUR = 8;
 const END_HOUR = 21;
 const HOURS = Array.from({ length: END_HOUR - START_HOUR }, (_, i) => i + START_HOUR);
 
-// Función auxiliar para generar un color a partir de un string
 const stringToColor = (str) => {
   if (!str) return '#ccc';
   let hash = 0;
@@ -57,7 +56,7 @@ const ScheduleGrid = () => {
       
       if (data.success) {
         alert(data.message || 'Horario generado exitosamente.');
-        fetchSchedules(); // Refrescar grid
+        fetchSchedules();
       } else {
         alert('Error: ' + data.message + '\n' + (data.errors ? data.errors.join('\n') : ''));
       }
@@ -68,7 +67,6 @@ const ScheduleGrid = () => {
     }
   };
 
-  // Opciones únicas para el dropdown de filtro
   const filterOptions = useMemo(() => {
     const options = new Set();
     schedules.forEach(s => {
@@ -81,7 +79,6 @@ const ScheduleGrid = () => {
     return opts;
   }, [schedules, filterType]);
 
-  // Bloques filtrados para mostrar en el grid
   const visibleSchedules = useMemo(() => {
     return schedules.filter(s => {
       if (filterType === 'course') return s.course_name === filterValue;
@@ -130,7 +127,6 @@ const ScheduleGrid = () => {
 
         <div className="grid-wrapper">
           <div className="schedule-grid">
-            {/* Header: Días */}
             <div className="grid-header">
               <div className="grid-header-cell" style={{ zIndex: 3 }}>Hora</div>
               {DAYS.map(day => (
@@ -138,12 +134,10 @@ const ScheduleGrid = () => {
               ))}
             </div>
 
-            {/* Body: Horas y Celdas */}
             {HOURS.map(hour => (
               <React.Fragment key={`row-${hour}`}>
                 <div className="grid-time-column">{`${hour}:00`}</div>
                 {DAYS.map(day => {
-                  // Buscar si hay una clase en este bloque exacto (hora de inicio)
                   const block = visibleSchedules.find(s => s.day === day && s.start_time === hour);
                   
                   return (
@@ -173,7 +167,6 @@ const ScheduleGrid = () => {
         </div>
       </div>
 
-      {/* Modal de Detalles */}
       {selectedBlock && (
         <div className="modal-overlay" onClick={() => setSelectedBlock(null)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>

@@ -7,7 +7,6 @@ class GeneratorService {
     }
 
     async generate() {
-        // 1. Obtener Periodo Activo
         const [termRows] = await this.pool.execute("SELECT id FROM academic_terms WHERE is_active = true LIMIT 1");
         if (termRows.length === 0) {
             return {
@@ -18,10 +17,8 @@ class GeneratorService {
         }
         const termId = termRows[0].id;
 
-        // 2. Limpiar horarios existentes para el periodo activo
         await this.pool.execute("DELETE FROM schedules WHERE term_id = ?", [termId]);
 
-        // 3. Extraer Datos de MySQL para el Motor
         const [groups] = await this.pool.execute(`
             SELECT sg.*, c.weekly_hours, c.name as course_name 
             FROM student_groups sg 
@@ -40,11 +37,10 @@ class GeneratorService {
             };
         }
 
-        // 4. Formatear datos para CSPOptimizer
         // CSPMotor espera groups con: quota, room_type_required, weekly_hours, teacher_id
         const formattedGroups = groups.map(g => ({
             ...g,
-            room_type_required: 'theory', // Por defecto a teoría, se podría sacar de DB
+            room_type_required: 'theory',
         }));
 
         const inputData = {
@@ -58,7 +54,6 @@ class GeneratorService {
             }
         };
 
-        // 5. Inicializar y Ejecutar CSPOptimizer
         const optimizer = new CSPOptimizer(inputData);
         console.log("Iniciando Motor CSP (Backtracking)...");
         const assignments = optimizer.solve();
@@ -74,7 +69,6 @@ class GeneratorService {
 
         console.log(`CSP encontró solución con ${assignments.length} asignaciones. Guardando en BD...`);
 
-        // 6. Guardar Asignaciones en Base de Datos
         for (const assignment of assignments) {
             const startStr = `${assignment.start_time.toString().padStart(2, '0')}:00:00`;
             const endStr = `${assignment.end_time.toString().padStart(2, '0')}:00:00`;
@@ -85,9 +79,7 @@ class GeneratorService {
             );
         }
 
-        // 7. Validación Anti-Cruces (Doble Verificación)
         try {
-            // Extraer todos los horarios recién guardados
             const [finalSchedules] = await this.pool.execute(`
                 SELECT s.*, r.name as aula, c.name as materia, t.name as profesor
                 FROM schedules s
@@ -98,7 +90,6 @@ class GeneratorService {
                 WHERE s.term_id = ?
             `, [termId]);
 
-            // Transformar para el validador
             const horarioValidar = finalSchedules.map(s => ({
                 id: s.id,
                 dia: s.day_of_week,
@@ -119,7 +110,6 @@ class GeneratorService {
             console.error("Error en validador anti-cruces:", e);
         }
 
-        // 8. Construir Respuesta
         const response = optimizer.buildResponse(assignments);
         return {
             success: true,

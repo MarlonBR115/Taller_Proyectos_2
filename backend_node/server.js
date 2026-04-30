@@ -9,7 +9,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Database Connection Pool
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -20,13 +19,11 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-// Helper to handle queries
 const queryDB = async (sql, params = []) => {
     const [rows, fields] = await pool.execute(sql, params);
     return rows;
 };
 
-// Probar conexión a la BD al iniciar
 pool.getConnection()
     .then(conn => {
         console.log('✅ Conectado exitosamente a la base de datos MySQL!');
@@ -41,10 +38,6 @@ pool.getConnection()
         console.log('2. Has ejecutado "node init_db.js" para crear las tablas.');
         console.log('--------------------------------------------------\n');
     });
-
-// ==========================================
-// CRUD RUTAS
-// ==========================================
 
 // --- TEACHERS ---
 app.get('/api/teachers', async (req, res) => {
@@ -169,7 +162,6 @@ app.delete('/api/rooms/:id', async (req, res) => {
 app.get('/api/terms', async (req, res) => {
     try {
         const data = await queryDB("SELECT * FROM academic_terms ORDER BY is_active DESC, created_at DESC");
-        // Convertir booleanos para el frontend
         const mapped = data.map(t => ({ ...t, is_active: !!t.is_active }));
         res.json({ success: true, data: mapped });
     } catch (err) {
@@ -304,11 +296,7 @@ app.get('/api/schedule/all', async (req, res) => {
     }
 });
 
-// ==========================================
-// CORE ENGINE: NODE.JS ALGORITHM
-// ==========================================
 const GeneratorService = require('./GeneratorService');
-
 app.post('/api/schedule/generate', async (req, res) => {
     try {
         const generator = new GeneratorService(pool);
@@ -320,7 +308,6 @@ app.post('/api/schedule/generate', async (req, res) => {
     }
 });
 
-// Iniciar servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Node API running on http://localhost:${PORT}`);
