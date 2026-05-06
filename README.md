@@ -12,6 +12,7 @@
 5. [Estado Actual (Sprint 0)](#5-estado-actual-sprint-0)
 6. [Estructura del Repositorio](#6-estructura-del-repositorio)
 7. [📚 Documentación del Proyecto](#7--documentación-del-proyecto)
+8. [🚀 Guía Rápida de Inicio](#8--guía-rápida-de-inicio)
 
 ---
 
@@ -110,6 +111,9 @@ El repositorio ha migrado su documentación al formato `Markdown`. Para facilita
 * 📋 [Lista preliminar de requerimientos (Completo)](docs/Lista%20preliminar%20de%20requerimientos%20funcionales%20y%20no%20funcionales.md)
 * 📋 [Requerimientos preliminares (Resumen)](docs/ejecucion/REQUERIMENTOS.md)
 * ⚠️ [Supuestos y restricciones](docs/Supuestos%20y%20restricciones.md)
+
+### 🧠 Diseño y Algoritmos
+* ⚙️ [Definición de Heurísticas y Reglas de Negocio (CSPMotor)](docs/ejecucion/a003-02-heuristicas-reglas.md)
 
 ### 📁 Índices por Fase
 * 🚀 [Índice de ejecución](docs/ejecucion/README.md)
