@@ -111,6 +111,12 @@ El repositorio ha migrado su documentación al formato `Markdown`. Para facilita
 * 📋 [Lista preliminar de requerimientos (Completo)](docs/Lista%20preliminar%20de%20requerimientos%20funcionales%20y%20no%20funcionales.md)
 * 📋 [Requerimientos preliminares (Resumen)](docs/ejecucion/REQUERIMENTOS.md)
 * ⚠️ [Supuestos y restricciones](docs/Supuestos%20y%20restricciones.md)
+* [HU03 - Motor Anti-Cruces](docs/ejecucion/hu03-motor-anti-cruces.md)
+* [Evidencia TDD HU03](docs/ejecucion/evidencia-tdd-hu03.md)
+* [Metricas HU03](docs/ejecucion/metricas-hu03.md)
+* [SDD - Constitution](docs/sdd/constitution.md)
+* [SDD - Agents](docs/sdd/agents.md)
+* [SDD - Specs](docs/sdd/specs.md)
 
 ### 🧠 Diseño y Algoritmos
 * ⚙️ [Definición de Heurísticas y Reglas de Negocio (CSPMotor)](docs/ejecucion/a003-02-heuristicas-reglas.md)
