@@ -248,12 +248,7 @@ Formalmente:
 donde:
 
 \[
-F(X)=
-w_1C_{adjacency}
--
-w_2C_{gaps}
--
-w_3C_{timePenalty}
+F(X)= w_1C_{adjacency} - w_2C_{gaps} - w_3C_{timePenalty}
 \]
 
 Equivalentemente:
