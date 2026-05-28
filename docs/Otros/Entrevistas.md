@@ -1,6 +1,6 @@
 # Entrevistas Simuladas: Validación de Reglas de Negocio y Horarios
 
-Este documento recopila entrevistas simuladas realizadas a docentes de la institución (y una externa) con el objetivo de validar las reglas de negocio del sistema de generación de horarios, la problemática actual y las preferencias de los usuarios finales (los profesores).
+Este documento recopila entrevistas realizadas a docentes de la institución (y una externa) con el objetivo de validar las reglas de negocio del sistema de generación de horarios, la problemática actual y las preferencias de los usuarios finales (los profesores).
 
 ---
 
