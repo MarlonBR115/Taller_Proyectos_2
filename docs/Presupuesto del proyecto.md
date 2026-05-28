@@ -161,7 +161,7 @@ El presupuesto ha sido optimizado para minimizar gastos operativos y de infraest
 | Elaboración de documentación técnica | 15 | S/ 25 | S/ 375 |
 | Manual de usuario | 8 | S/ 25 | S/ 200 |
 
-|  |  | **TOTAL** | **S/ 1,200** |
+| | | **TOTAL** | **S/ 1,200** |
 
 ---
 
@@ -192,8 +192,7 @@ Se considera una contingencia mínima para cubrir:
 | Infraestructura y Hosting | S/ 510 |
 | Herramientas y Software | S/ 0 |
 | Gestión y Documentación | S/ 1,200 |
-
-
+|---|---:|
 | **SUBTOTAL** | **S/ 11,706** |
 | Contingencia | S/ 1,170 |
 | **TOTAL ESTIMADO DEL PROYECTO** | **S/ 12,876** |
