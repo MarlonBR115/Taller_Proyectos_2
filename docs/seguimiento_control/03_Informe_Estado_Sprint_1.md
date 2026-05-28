@@ -14,7 +14,7 @@
 ## Riesgos Activos Principales
 | Riesgo | Responsable | Mitigación |
 | :--- | :--- | :--- |
-| El motor anti-cruces excede los 10 segundos de procesamiento | Luis Quispe | Implementar poda temprana de variables en el CSPMotor y tests de carga tempranos. |
+| El motor anti-cruces excede los 15 segundos de procesamiento | Luis Quispe | Implementar poda temprana de variables en el CSPMotor y tests de carga tempranos. |
 | Datos de disponibilidad reales inaccesibles por burocracia | Marlon Bonifacio | Validar el sistema íntegramente con la base de datos `seed_db.js`. |
 
 ## Próximos Avances (Sprint 2)

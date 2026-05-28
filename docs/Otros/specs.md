@@ -25,24 +25,24 @@ El sistema debe procesar las siguientes variables bajo restricciones duras y bla
 
 | Código | Requerimiento |
 |---|---|
-| **RF01-04** | CRUD completo para el registro de Estudiantes, Docentes, Cursos y Aulas. |
-| **RF05** | Validación de matrícula (cumplimiento de prerrequisitos y límite de créditos). |
-| **RF06** | Generación automática de horarios mediante el algoritmo CSP. |
-| **RF07** | Prevención absoluta de conflictos/cruces de horarios. |
-| **RF08** | Visualización interactiva de horarios por estudiante, docente o aula. |
-| **RF09** | Edición manual y actualización de catálogos y horarios generados. |
-| **RF10** | Configuración y priorización de restricciones (ej. priorizar disponibilidad de un docente especialista). |
+| **RF01-04** | Gestión validada y estructurada de entidades principales (Estudiantes, Docentes, Cursos, Aulas). |
+| **RF05** | Validación estricta de matrículas verificando prerrequisitos y límite de créditos. |
+| **RF06-07** | Generación automática de horarios mediante CSP garantizando cero (0) cruces de recursos. |
+| **RF08** | Visualización interactiva semanal y exportación nativa a PDF. |
+| **RF09** | Módulos CRUD exclusivos y asegurados para el rol Administrador. |
+| **RF10** | Configuración de pesos (Alto, Medio, Bajo) para flexibilizar las heurísticas del algoritmo. |
 
 ---
 
 # Requerimientos No Funcionales (RNF) - ISO/IEC 25010
 
-- **RNF01 (Rendimiento):** El motor CSP debe generar un horario en menos de 10 segundos.
-- **RNF02 (Usabilidad):** Interfaz SPA intuitiva y de rápida navegación.
-- **RNF03 (Escalabilidad):** Capacidad para soportar variabilidad en la matrícula y aumento de entidades.
-- **RNF04 (Seguridad):** Cumplimiento de OWASP Top 10, autenticación JWT, control de roles.
-- **RNF05 (Mantenibilidad):** Código modular, documentado y desacoplado.
-- **RNF08 (Sostenibilidad):** Prácticas de Green Software para la eficiencia energética del procesamiento en el servidor.
+- **RNF01 (Rendimiento):** Generación de horarios en ≤ 15 segundos (para 500 alumnos/50 cursos).
+- **RNF02 (Usabilidad):** Operación principal de generación accesible en < 5 clics.
+- **RNF03 (Escalabilidad):** Soporte de 200 peticiones concurrentes con latencia < 2s.
+- **RNF04 (Seguridad):** Autenticación JWT y expiración automática de sesión a los 30 minutos.
+- **RNF05 (Mantenibilidad):** Cobertura de pruebas unitarias (Test Coverage) ≥ 70% en el motor CSP.
+- **RNF06 (Disponibilidad):** Uptime comprobable del 99.5% durante periodos críticos de matrícula.
+- **RNF07 (Compatibilidad):** Renderizado sin errores en las 2 últimas versiones de Chrome, Firefox y Edge.
 
 ---
 
