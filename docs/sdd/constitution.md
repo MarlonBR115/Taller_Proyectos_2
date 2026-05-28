@@ -53,3 +53,11 @@ Una historia de usuario o tarea tecnica se considera terminada cuando:
 
 ## Enfoque realista
 La arquitectura documental debe reconocer el estado actual del repositorio. HU03 cuenta con servicio, pruebas unitarias, metricas de validacion y documentacion de ejecucion. Otras capacidades del sistema pueden estar en desarrollo o parcialmente implementadas; por tanto, el SDD debe distinguir entre evidencia existente, decision de diseno y mejora pendiente.
+
+## Referencias documentales
+
+- [Vision general](../01_vision_general.md)
+- [Mapa del proceso academico](../02_mapa_proceso_academico.md)
+- [Requerimientos](../03_requerimientos.md)
+- [Supuestos y restricciones](../04_supuestos_y_restricciones.md)
+- [Registro de riesgos](../seguimiento_control/01_Registro_de_Riesgos_y_Oportunidades.md)

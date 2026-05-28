@@ -35,3 +35,7 @@ Donde `pesoDuro` debe ser suficientemente alto para descartar soluciones con cru
 
 ## Limitacion de las metricas
 Las metricas actuales miden la validacion en memoria del servicio HU03. No incluyen latencia HTTP, acceso a base de datos ni carga concurrente de usuarios.
+
+## Relacion con KPI generales
+
+Los KPI generales del proceso academico se consolidan en [KPI y Metricas](../seguimiento_control/02_KPI_y_Metricas.md). Este documento conserva el detalle especifico de HU03.

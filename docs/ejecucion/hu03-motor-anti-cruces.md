@@ -175,7 +175,9 @@ Documento complementario: [metricas-hu03.md](metricas-hu03.md).
 - Definir pesos para advertencias blandas dentro de RF10.
 
 ## Integracion SDD
-No existe `docs/sdd/specs.md` en la estructura actual. La especificacion relacionada vive de forma general en `docs/Otros/specs.md`. Para una adopcion SDD mas formal, HU03 deberia trazarse en un futuro `docs/sdd/specs.md` con:
+HU03 ya esta trazada en `docs/sdd/specs.md` como componente verificable del modelo CSP. Este documento de ejecucion conserva el detalle funcional y operativo del motor, mientras que `docs/sdd/specs.md` resume la especificacion, criterios de aceptacion y trazabilidad.
+
+Relacion principal:
 
 - requisito: RF07, prevencion de conflictos de horario;
 - reglas CSP: `CRUCE_DOCENTE`, `CRUCE_AULA`, `CRUCE_GRUPO`, `BLOQUE_INVALIDO`;
