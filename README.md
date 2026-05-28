@@ -1,6 +1,6 @@
 # Sistema de Generación Óptima de Horarios Académicos en Entornos de Currículo Flexible
 
-![Estado: Sprint 0](https://img.shields.io/badge/Estado-Sprint%200%3A%20Inicio-blue)
+![Estado: En Desarrollo](https://img.shields.io/badge/Estado-En%20Desarrollo-blue)
 ![Curso: Taller de Proyectos 2](https://img.shields.io/badge/Curso-Taller%20de%20Proyectos%202-brightgreen)
 
 ## 📖 Índice
@@ -9,7 +9,7 @@
 2. [Problemática Abordada](#2-problemática-abordada)
 3. [Objetivo del Proyecto](#3-objetivo-del-proyecto)
 4. [Equipo de Trabajo y Roles](#4-equipo-de-trabajo-y-roles)
-5. [Estado Actual (Sprint 0)](#5-estado-actual-sprint-0)
+5. [Estado Actual](#5-estado-actual)
 6. [Estructura del Repositorio](#6-estructura-del-repositorio)
 7. [📚 Documentación del Proyecto](#7--documentación-del-proyecto)
 8. [🚀 Guía Rápida de Inicio](#8--guía-rápida-de-inicio)
@@ -17,9 +17,9 @@
 ---
 
 ## 1. Descripción General
-Este repositorio corresponde al proyecto universitario desarrollado en el curso **Taller de Proyectos 2**. En el **Sprint 0: Inicio del proyecto**, el propósito principal es organizar adecuadamente el repositorio, consolidar la documentación inicial y establecer una base formal para el trabajo colaborativo del equipo. 
+Este repositorio corresponde al proyecto universitario desarrollado en el curso **Taller de Proyectos 2**. El propósito principal es desarrollar un sistema funcional con una organización adecuada del repositorio, consolidando la documentación y la base para el trabajo colaborativo del equipo.
 
-El contenido actual está orientado a la definición del problema, la visión inicial del proyecto, la organización documental y la identificación preliminar de requerimientos.
+El contenido está orientado a la definición del problema, la visión del proyecto, la organización documental y la implementación de requerimientos funcionales y no funcionales.
 
 ---
 
@@ -35,9 +35,9 @@ Esta situación puede generar:
 ---
 
 ## 3. Objetivo del Proyecto
-Desarrollar una propuesta orientada a la generación óptima de horarios académicos en entornos de currículo flexible, considerando las restricciones académicas y operativas identificadas en la etapa inicial del proyecto.
+Desarrollar una propuesta orientada a la generación óptima de horarios académicos en entornos de currículo flexible, considerando las restricciones académicas y operativas identificadas.
 
-En el contexto específico del **Sprint 0**, el objetivo inmediato no es implementar el sistema completo, sino consolidar la documentación base, la organización del equipo y la estructura del repositorio para facilitar el desarrollo posterior del proyecto.
+El objetivo general es implementar un sistema completo y robusto para la resolución automatizada de horarios, mediante el uso de heurísticas y reglas de negocio adaptables, facilitando la gestión del entorno académico.
 
 ---
 
@@ -55,14 +55,14 @@ En el contexto específico del **Sprint 0**, el objetivo inmediato no es impleme
 
 ---
 
-## 5. Estado Actual (Sprint 0)
-Actualmente, el proyecto se encuentra en una fase de inicio y organización. En esta etapa se prioriza:
+## 5. Estado Actual
+Actualmente, el proyecto se encuentra en fase de desarrollo activo. En esta etapa se prioriza:
 
-- La definición y presentación formal del problema.
-- La declaración de visión del proyecto.
-- La identificación preliminar de requerimientos.
-- La formalización de roles, normas y compromisos del equipo.
-- La organización documental del repositorio para revisión académica.
+- La implementación del motor de generación de horarios (CSP).
+- El desarrollo de las interfaces frontend en React y servicios del backend en Node.
+- El cumplimiento de los requerimientos funcionales y métricas SMART (RNF).
+- La iteración en funcionalidades de gestión académica.
+- El aseguramiento de calidad (pruebas, cobertura de código y revisión).
 
 ---
 
@@ -85,7 +85,7 @@ Actualmente, el proyecto se encuentra en una fase de inicio y organización. En 
 |   |-- Supuestos y restricciones.md
 |   |-- cierre/              # Documentación de cierre
 |   |-- ejecucion/           # Requerimientos y materiales de ejecución
-|   |-- inicio/              # Documentos base del Sprint 0
+|   |-- inicio/              # Documentos base del proyecto
 |   |-- Otros/               # Documentos complementarios
 |   `-- seguimiento_control/ # Seguimiento y control del proyecto
 `-- frontend/                # Componente de interfaz de usuario

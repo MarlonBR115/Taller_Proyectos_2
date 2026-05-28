@@ -6,7 +6,7 @@
 
 | ID Riesgo | Descripción del Riesgo | Área de Impacto | Causa | Impacto (1-9) | Probabilidad (0.1-0.9) | Puntuación | Detectabilidad | Estado | Asignado a | Evento que lo Dispara | Estrategia de Respuesta |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| R-01 | El motor anti-cruces excede los 10 segundos de procesamiento requeridos (RNF01) al evaluar un gran volumen de datos. | Rendimiento | Algoritmo CSP no optimizado para alta carga. | 7 (Muy Serio) | 0.5 (Medio) | 3.5 | Baja | Activo | Luis Quispe | Pruebas de estrés fallidas. | Implementar poda de restricciones temprana y heurísticas de ordenamiento. |
+| R-01 | El motor anti-cruces excede los 15 segundos de procesamiento requeridos (RNF01) al evaluar un gran volumen de datos. | Rendimiento | Algoritmo CSP no optimizado para alta carga. | 7 (Muy Serio) | 0.5 (Medio) | 3.5 | Baja | Activo | Luis Quispe | Pruebas de estrés fallidas. | Implementar poda de restricciones temprana y heurísticas de ordenamiento. |
 | R-02 | Incompatibilidades en el entorno de desarrollo entre Vite (Frontend) y Express (Backend). | Cronograma | Diferencias en versiones de Node y configuración CORS. | 3 (Moderado) | 0.3 (Bajo) | 0.9 | Alta | Cerrado | Fabian Guzman | Errores en consola al conectar API. | Homologar versiones y configurar middleware CORS estándar en `server.js`. |
 | R-03 | Falta de información real sobre la disponibilidad de los docentes y aulas de la universidad. | Alcance / Calidad | Datos dependientes de terceros (administración). | 5 (Serio) | 0.7 (Alto) | 3.5 | Media | Activo | Marlon Bonifacio | Generación de horarios irreales. | Utilizar el script `seed_db.js` con datos simulados altamente realistas para avanzar. |
 
