@@ -1,4 +1,4 @@
-# Specs SDD
+﻿# Specs SDD
 
 ## Proposito
 Este documento registra especificaciones verificables del prototipo bajo un enfoque SDD. La especificacion activa se concentra en HU03 - Motor Anti-Cruces porque cuenta con implementacion, pruebas unitarias, metricas y documentacion tecnica en el repositorio.
@@ -77,6 +77,7 @@ Cada conflicto incluye `tipo`, `severidad`, `mensaje`, `sesionA`, `sesionB`, `di
 | `DATOS_OPCIONALES_INCOMPLETOS` | Datos no criticos faltantes para analisis avanzado. | `BAJA` |
 
 ### Criterios de aceptacion
+
 | Criterio | Dado | Cuando | Entonces |
 |---|---|---|---|
 | Horario sin cruces | Una lista de sesiones con recursos no solapados. | Se ejecuta `validateSchedule`. | `valido = true` y `totalConflictos = 0`. |
@@ -145,6 +146,7 @@ duration_ms 89.5146
 HU03 cuenta con pruebas unitarias automatizadas para reglas duras, advertencias operativas, contrato de salida, metricas, adaptacion de datos y rendimiento basico. No existe medicion formal de coverage configurada; la cobertura porcentual queda como mejora pendiente.
 
 ## Trazabilidad minima
+
 | Historia | Requisito | Prueba asociada | Evidencia | Estado |
 |---|---|---|---|---|
 | HU03 - Motor Anti-Cruces | RF07 - Evitar conflictos de horarios para docentes, aulas y grupos. | `backend_node/tests/motorAntiCruces.test.js` | `docs/ejecucion/evidencia-tdd-hu03.md` | Implementada y probada con 23 pruebas unitarias. |
@@ -153,7 +155,6 @@ HU03 cuenta con pruebas unitarias automatizadas para reglas duras, advertencias 
 | HU03 - Motor Anti-Cruces | Integracion backend | Adaptacion basica desde `GeneratorService`. | `backend_node/GeneratorService.js` | Parcial: validacion posterior integrada; pruebas HTTP pendientes. |
 | HU03 - Motor Anti-Cruces | RF10 - Priorizacion futura de restricciones. | Advertencia `TRANSICION_INSUFICIENTE`. | `docs/ejecucion/hu03-motor-anti-cruces.md` | Parcial: advertencia implementada; funcion objetivo ponderada pendiente. |
 
-## Limitaciones documentadas
 - HU03 no genera horarios por si misma.
 - HU03 no corrige conflictos automaticamente.
 - No existe persistencia historica de KPI.
