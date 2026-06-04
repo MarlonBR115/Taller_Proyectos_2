@@ -46,7 +46,7 @@ Para cumplir con el rol de **Responsable de Calidad**, se establecen las siguien
 1. **Funcionalidad:** ¿El código cumple con el requerimiento funcional (RF) asignado?
 2. **Restricciones CSP:** Si afecta al motor, ¿se han validado las restricciones duras (20-22 créditos, no cruces)?
 3. **Seguridad:** ¿Se maneja correctamente el JWT y la validación de inputs?
-4. **Rendimiento:** ¿La respuesta del endpoint de generación sigue siendo inferior a 10 segundos (RNF01)?
+4. **Rendimiento:** ¿La respuesta del endpoint de generación sigue siendo inferior a 15 segundos (RNF01)?
 
 ### 3.2 Pruebas Obligatorias
 - **Unitarias:** Todo servicio en el backend debe tener pruebas que validen casos de éxito y error.

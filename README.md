@@ -1,21 +1,25 @@
 # Sistema de Generacion Optima de Horarios Academicos en Entornos de Curriculo Flexible
 
-Plataforma academica semiautomatica para apoyar la planificacion academica, oferta de cursos, asignacion docente, gestion de aulas, programacion de horarios, validacion de restricciones y medicion de KPI.
+![Estado: En Desarrollo](https://img.shields.io/badge/Estado-En%20Desarrollo-blue)
+![Curso: Taller de Proyectos 2](https://img.shields.io/badge/Curso-Taller%20de%20Proyectos%202-brightgreen)
 
 El sistema genera, valida, mide y recomienda. No reemplaza totalmente la intervencion humana: coordinadores, responsables de horarios, docentes y registro academico conservan la revision de excepciones, aprobacion final y control de cambios.
 
-## Problema que aborda
+1. [Descripción General](#1-descripción-general)
+2. [Problemática Abordada](#2-problemática-abordada)
+3. [Objetivo del Proyecto](#3-objetivo-del-proyecto)
+4. [Equipo de Trabajo y Roles](#4-equipo-de-trabajo-y-roles)
+5. [Estado Actual](#5-estado-actual)
+6. [Estructura del Repositorio](#6-estructura-del-repositorio)
+7. [📚 Documentación del Proyecto](#7--documentación-del-proyecto)
+8. [🚀 Guía Rápida de Inicio](#8--guía-rápida-de-inicio)
 
 La planificacion academica flexible combina demanda de cursos, docentes, aulas, cupos, disponibilidad, secciones y restricciones de horario. Sin apoyo tecnico, el proceso puede generar cruces, sobreuso de aulas, baja trazabilidad y dificultad para justificar decisiones academicas.
 
-## Alcance actual
+## 1. Descripción General
+Este repositorio corresponde al proyecto universitario desarrollado en el curso **Taller de Proyectos 2**. El propósito principal es desarrollar un sistema funcional con una organización adecuada del repositorio, consolidando la documentación y la base para el trabajo colaborativo del equipo.
 
-- Gestion base de docentes, cursos, aulas, periodos, grupos/secciones y horarios.
-- Motor CSP inicial para generar horarios.
-- HU03 - Motor Anti-Cruces para validar cruces de docente, aula y grupo.
-- Metricas de validacion y generacion en memoria.
-- Documentacion SDD, riesgos, KPI, pruebas y evidencias.
-- Frontend React/Vite para gestion y visualizacion base.
+El contenido está orientado a la definición del problema, la visión del proyecto, la organización documental y la implementación de requerimientos funcionales y no funcionales.
 
 ## Alcance futuro
 
@@ -36,23 +40,10 @@ La planificacion academica flexible combina demanda de cursos, docentes, aulas, 
 | Pruebas | `node:test` |
 | Documentacion | Markdown |
 
-## Estructura del repositorio
+## 3. Objetivo del Proyecto
+Desarrollar una propuesta orientada a la generación óptima de horarios académicos en entornos de currículo flexible, considerando las restricciones académicas y operativas identificadas.
 
-```text
-.
-|-- backend_node/              # API Express, servicios de generacion y pruebas
-|-- database/                  # Esquema SQL y ajustes de base de datos
-|-- frontend/                  # Interfaz React/Vite
-|-- docs/                      # Documentacion academica y tecnica
-|   |-- sdd/
-|   |-- ejecucion/
-|   |-- seguimiento_control/
-|   |-- referencias/
-|   |-- inicio/
-|   |-- cierre/
-|   `-- Otros/
-`-- start_node.bat
-```
+El objetivo general es implementar un sistema completo y robusto para la resolución automatizada de horarios, mediante el uso de heurísticas y reglas de negocio adaptables, facilitando la gestión del entorno académico.
 
 ## Modulos principales
 
@@ -79,9 +70,14 @@ La planificacion academica flexible combina demanda de cursos, docentes, aulas, 
 
 ## Estado del proyecto
 
-El repositorio corresponde a un prototipo academico. Ya existen componentes funcionales de backend, frontend, base de datos, motor CSP y motor anti-cruces. Varias capacidades integrales se documentan como propuestas futuras y no deben presentarse como implementadas hasta contar con codigo, pruebas y evidencia.
+## 5. Estado Actual
+Actualmente, el proyecto se encuentra en fase de desarrollo activo. En esta etapa se prioriza:
 
-## Ejecucion del backend
+- La implementación del motor de generación de horarios (CSP).
+- El desarrollo de las interfaces frontend en React y servicios del backend en Node.
+- El cumplimiento de los requerimientos funcionales y métricas SMART (RNF).
+- La iteración en funcionalidades de gestión académica.
+- El aseguramiento de calidad (pruebas, cobertura de código y revisión).
 
 ```bash
 cd backend_node
@@ -94,7 +90,29 @@ node server.js
 Backend por defecto:
 
 ```text
-http://localhost:3000
+.
+|-- README.md
+|-- backend/                 # Componente de lógica y servicios
+|   |-- README.md
+|   `-- tests/
+|       `-- README.md
+|-- docs/                    # Documentación principal del proyecto
+|   |-- declaracion-equipo.md
+|   |-- Declaración de la visión del proyecto.md
+|   |-- Documento inicial del problema.md
+|   |-- Kickoff Project Charter.docx
+|   |-- Lista preliminar de requerimientos funcionales y no funcionales.md
+|   |-- Selección del enfoque del proyecto.md
+|   |-- Supuestos y restricciones.md
+|   |-- cierre/              # Documentación de cierre
+|   |-- ejecucion/           # Requerimientos y materiales de ejecución
+|   |-- inicio/              # Documentos base del proyecto
+|   |-- Otros/               # Documentos complementarios
+|   `-- seguimiento_control/ # Seguimiento y control del proyecto
+`-- frontend/                # Componente de interfaz de usuario
+    |-- README.md
+    `-- tests/
+        `-- README.md
 ```
 
 ## Ejecucion del frontend

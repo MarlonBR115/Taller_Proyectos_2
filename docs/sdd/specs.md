@@ -1,185 +1,162 @@
 ﻿# Specs SDD
 
 ## Proposito
-
-Este documento registra especificaciones verificables del prototipo bajo un enfoque Spec-Driven Development (SDD). La referencia principal actual se concentra en la programacion optima de horarios academicos, con trazabilidad especial hacia HU03 - Motor Anti-Cruces, el motor CSP y las evidencias de pruebas/metricas existentes.
-
-Documentos base relacionados:
-
-- [Vision general](../01_vision_general.md)
-- [Mapa del proceso academico](../02_mapa_proceso_academico.md)
-- [Requerimientos](../03_requerimientos.md)
-- [Supuestos y restricciones](../04_supuestos_y_restricciones.md)
-
-## Alcance del sistema
-
-El prototipo busca generar y validar horarios academicos considerando:
-
-- planificacion academica semiautomatica;
-- oferta de cursos y secciones;
-- cursos;
-- docentes;
-- aulas;
-- grupos o secciones;
-- periodos academicos;
-- disponibilidad;
-- restricciones duras;
-- restricciones blandas;
-- cruces de horario;
-- metricas de calidad.
-
-No se documenta como sistema completo de matricula estudiantil. Cualquier referencia a matricula o estudiantes se considera contexto academico o mejora futura, salvo que exista implementacion directa en el repositorio.
-
-El sistema debe apoyar decisiones humanas: genera, valida, mide y recomienda, pero no aprueba automaticamente excepciones academicas ni reemplaza al coordinador responsable.
-
-## Componentes principales
-
-| Componente | Archivo | Responsabilidad | Estado |
-|---|---|---|---|
-| API Express | `backend_node/server.js` | Expone rutas CRUD y endpoint de generacion. | Implementacion base. |
-| Orquestador | `backend_node/GeneratorService.js` | Obtiene datos de MySQL, ejecuta CSPMotor y guarda horarios. | Implementacion base; contrato con HU03 requiere cuidado. |
-| Motor CSP | `backend_node/src/services/CSPMotor.js` | Busca asignaciones validas con backtracking, restricciones y heuristicas. | Implementacion base documentada. |
-| Motor Anti-Cruces HU03 | `backend_node/src/services/motorAntiCruces.js` | Valida cruces, bloques invalidos, advertencias y metricas. | Implementado y probado. |
-| Pruebas HU03 | `backend_node/tests/motorAntiCruces.test.js` | Verifica reglas duras, advertencias, metricas y rendimiento basico. | Implementado. |
-| Frontend | `frontend/src/` | Gestion y visualizacion basica de horarios. | Implementacion base. |
-
-## Relacion entre generacion y validacion
-
-Flujo esperado del prototipo:
-
-```text
-Datos MySQL -> GeneratorService -> CSPMotor -> schedules -> validacion HU03 -> metricas/evidencia
-```
-
-- `GeneratorService` orquesta la generacion y persistencia de horarios.
-- `CSPMotor` produce asignaciones candidatas aplicando restricciones duras y heuristicas.
-- `motorAntiCruces` valida horarios como componente independiente y testeable.
-- La integracion completa entre salida de generacion y contrato HU03 debe mantenerse bajo seguimiento porque los nombres de campos y formatos horarios deben coincidir.
-
-## Restricciones duras del modelo
-
-| Restriccion | Descripcion | Evidencia |
-|---|---|---|
-| No cruce de docente | Un docente no puede dictar dos clases solapadas. | HU03 y CSPMotor. |
-| No cruce de aula | Un aula no puede usarse simultaneamente por dos clases. | HU03 y CSPMotor. |
-| No cruce de grupo | Un grupo no puede tener dos clases al mismo tiempo. | HU03. |
-| Bloque horario valido | Dia, hora de inicio, hora de fin y recursos deben ser validos. | HU03. |
-| Capacidad de aula | El aula debe soportar el cupo del grupo. | CSPMotor. |
-| Tipo de aula | El tipo de aula debe ser compatible con el requerimiento del grupo. | CSPMotor. |
-| Disponibilidad docente | La asignacion debe respetar disponibilidad simplificada del docente. | CSPMotor. |
-
-## Restricciones blandas y criterios de calidad
-
-| Restriccion o criterio | Descripcion | Estado |
-|---|---|---|
-| Transicion insuficiente | Advertencia cuando docente o grupo cambia de aula con margen menor al minimo. | Implementado en HU03. |
-| Preferencia horaria | Penaliza horarios extremos y prioriza horarios cercanos al centro del dia. | Parcial en CSPMotor. |
-| Huecos academicos | Penaliza espacios entre asignaciones relacionadas. | Parcial en CSPMotor. |
-| Continuidad | Premia clases contiguas cuando mejora la calidad del horario. | Parcial en CSPMotor. |
+Este documento registra especificaciones verificables del prototipo bajo un enfoque SDD. La especificacion activa se concentra en HU03 - Motor Anti-Cruces porque cuenta con implementacion, pruebas unitarias, metricas y documentacion tecnica en el repositorio.
 
 ## HU03 - Motor Anti-Cruces
 
 ### Proposito
+Validar una propuesta de horario academico y detectar incumplimientos de restricciones duras y advertencias operativas. HU03 funciona como componente verificable del modelo CSP y como evidencia para RF07: evitar conflictos de horarios.
 
-Validar una propuesta de horario academico y detectar incumplimientos de la regla de no cruce para docente, aula y grupo. HU03 funciona como componente verificable del modelo CSP y como evidencia tecnica para RF07.
-
-### Modulo de implementacion
-
-- Servicio: `backend_node/src/services/motorAntiCruces.js`
-- Pruebas: `backend_node/tests/motorAntiCruces.test.js`
-- Documentacion funcional: `docs/ejecucion/hu03-motor-anti-cruces.md`
-- Evidencia TDD: `docs/ejecucion/evidencia-tdd-hu03.md`
-- Metricas: `docs/ejecucion/metricas-hu03.md`
+### Modulos relacionados
+| Modulo | Archivo | Rol |
+|---|---|---|
+| Validador HU03 | `backend_node/src/services/motorAntiCruces.js` | Normaliza sesiones, valida cruces, datos invalidos, sobrecupos, tipos de aula y metricas. |
+| Orquestador | `backend_node/GeneratorService.js` | Genera horarios con `CSPMotor`, guarda resultados y adapta datos para HU03. |
+| Generador CSP | `backend_node/src/services/CSPMotor.js` | Busca asignaciones viables durante la generacion. |
+| Pruebas | `backend_node/tests/motorAntiCruces.test.js` | Verifica contrato, reglas y casos limite. |
 
 ### Entradas esperadas
+`validateSchedule(schedule, opciones)` recibe un arreglo de sesiones. El contrato interno normalizado es:
 
-`validateSchedule(schedule, opciones)` recibe bloques horarios con, como minimo:
+```js
+{
+  id,
+  docenteId,
+  aulaId,
+  grupoId,
+  carreraId,
+  ciclo,
+  cursoId,
+  seccionId,
+  dia,
+  horaInicio,
+  horaFin,
+  capacidadAula,
+  estudiantesEstimados,
+  tipoAula,
+  tipoSesion
+}
+```
 
-- `id`
-- `docenteId`
-- `aulaId`
-- `grupoId`
-- `dia`
-- `horaInicio`
-- `horaFin`
+El motor acepta alias provenientes de backend y MySQL, como `teacher_id`, `room_id`, `group_id`, `course_id`, `day_of_week`, `start_time`, `end_time`, `capacity`, `quota`, `room_type` y `room_type_required`. Las horas pueden recibirse como `HH:MM` o `HH:MM:SS`.
 
 ### Salidas esperadas
+La salida publica mantiene los campos principales:
 
 - `valido`
 - `totalConflictos`
 - `conflictos`
+
+Tambien expone:
+
+- `totalSesiones`
 - `totalAdvertencias`
 - `advertencias`
 - `metricas`
 
-Una solucion candidata se considera aceptable para restricciones duras cuando `valido = true` y `totalConflictos = 0`.
+Cada conflicto incluye `tipo`, `severidad`, `mensaje`, `sesionA`, `sesionB`, `dia`, `horaInicio`, `horaFin`, `recursoId`, `recomendacion` y `bloquesInvolucrados` para compatibilidad documental previa.
+
+### Restricciones duras validadas
+| Tipo | Regla | Severidad |
+|---|---|---|
+| `CRUCE_DOCENTE` | Un docente no puede dictar dos sesiones solapadas el mismo dia. | `ALTA` |
+| `CRUCE_AULA` | Un aula no puede asignarse a dos sesiones simultaneas. | `ALTA` |
+| `CRUCE_GRUPO` | Un grupo/seccion no puede tener dos sesiones simultaneas. | `ALTA` |
+| `DATOS_INVALIDOS` | La sesion debe tener docente, aula, grupo, dia, inicio y fin validos. | `ALTA` |
+| `DATOS_INVALIDOS` | `horaInicio` debe ser menor que `horaFin`. | `ALTA` |
+| `SOBRECUPOS_AULA` | La demanda estimada no debe superar la capacidad del aula cuando ambos datos existen. | `ALTA` |
+| `TIPO_AULA_INCOMPATIBLE` | El tipo de aula debe ser compatible con el tipo de sesion cuando ambos datos existen. | `ALTA` |
+
+`BLOQUE_INVALIDO` se conserva como alias de compatibilidad hacia `DATOS_INVALIDOS`.
+
+### Restricciones blandas y advertencias
+| Tipo | Regla | Severidad |
+|---|---|---|
+| `TRANSICION_INSUFICIENTE` | Docente o grupo con margen de traslado menor al minimo configurado y cambio de aula o edificio. | `MEDIA` |
+| `DATOS_OPCIONALES_INCOMPLETOS` | Datos no criticos faltantes para analisis avanzado. | `BAJA` |
 
 ### Criterios de aceptacion
 
 | Criterio | Dado | Cuando | Entonces |
 |---|---|---|---|
-| Horario sin cruces | Una lista de bloques sin solapamientos. | Se ejecuta `validateSchedule`. | `valido = true` y `totalConflictos = 0`. |
-| Cruce de docente | Dos bloques del mismo docente se solapan. | Se valida el horario. | Se reporta `CRUCE_DOCENTE`. |
-| Cruce de aula | Dos bloques usan la misma aula en el mismo intervalo. | Se valida el horario. | Se reporta `CRUCE_AULA`. |
-| Cruce de grupo | Dos bloques del mismo grupo se solapan. | Se valida el horario. | Se reporta `CRUCE_GRUPO`. |
-| Bloque invalido | Un bloque no tiene datos minimos o rango horario valido. | Se valida el horario. | Se reporta `BLOQUE_INVALIDO`. |
-| Transicion insuficiente | Docente o grupo cambia de aula con margen menor al minimo. | Se valida el horario. | Se reporta `TRANSICION_INSUFICIENTE` como advertencia. |
+| Horario sin cruces | Una lista de sesiones con recursos no solapados. | Se ejecuta `validateSchedule`. | `valido = true` y `totalConflictos = 0`. |
+| Cruce de docente | Dos sesiones del mismo docente se solapan el mismo dia. | Se valida el horario. | Se reporta `CRUCE_DOCENTE`. |
+| Cruce de aula | Dos sesiones comparten aula e intervalo. | Se valida el horario. | Se reporta `CRUCE_AULA`. |
+| Cruce de grupo | Dos sesiones del mismo grupo se solapan. | Se valida el horario. | Se reporta `CRUCE_GRUPO`. |
+| Datos invalidos | Falta campo obligatorio o rango horario valido. | Se valida el horario. | Se reporta `DATOS_INVALIDOS`. |
+| Sesiones consecutivas | Una sesion termina exactamente cuando otra inicia. | Se valida el horario. | No se reporta cruce duro. |
+| Transicion insuficiente | Hay cambio de aula con margen menor al minimo. | Se valida el horario. | Se reporta advertencia `TRANSICION_INSUFICIENTE`. |
+| Sobrecupo | Estudiantes estimados superan capacidad. | Se valida el horario. | Se reporta `SOBRECUPOS_AULA`. |
+| Tipo incompatible | Tipo de aula no satisface tipo de sesion. | Se valida el horario. | Se reporta `TIPO_AULA_INCOMPATIBLE`. |
 
-## Pruebas y metricas
+### Pruebas asociadas
+Las pruebas unitarias estan implementadas con `node:test` en `backend_node/tests/motorAntiCruces.test.js`.
 
-Las pruebas unitarias actuales de HU03 usan `node:test` y cubren reglas duras, advertencias, contrato de salida, metricas y rendimiento basico con 300 bloques.
+Casos verificados:
 
-Comando documentado:
+- horario valido sin cruces;
+- cruce de docente, aula y grupo;
+- mismo recurso en dias diferentes;
+- clases consecutivas sin cruce;
+- formato de hora invalido;
+- `horaInicio >= horaFin`;
+- sesion sin docente, aula o dia;
+- alias de campos provenientes de otras capas;
+- transicion suficiente e insuficiente;
+- multiples conflictos;
+- sobrecupo de aula;
+- tipo de aula incompatible;
+- advertencias opcionales;
+- metricas verificables;
+- no mutacion del arreglo original;
+- adaptacion basica de `GeneratorService` sin base de datos real;
+- rendimiento basico con 300 sesiones.
+
+### Metricas verificables
+HU03 entrega metricas en cada validacion:
+
+- tiempo de validacion en milisegundos;
+- total de sesiones;
+- sesiones validas e invalidas;
+- porcentaje de sesiones validas;
+- total y tasa de conflictos;
+- conflictos por tipo;
+- total y distribucion de advertencias;
+- docentes, aulas y grupos analizados.
+
+### Resultado esperado de pruebas
+Comando:
 
 ```bash
 cd backend_node
 npm.cmd test
 ```
 
-Resultado documentado en evidencia HU03:
+Resultado observado:
 
 ```text
-tests 16
-pass 16
+tests 23
+pass 23
 fail 0
+duration_ms 89.5146
 ```
 
-No existe medicion formal de coverage configurada actualmente. La cobertura porcentual queda como mejora pendiente.
-
-## Casos limite y supuestos
-
-| Caso | Tratamiento actual |
-|---|---|
-| Bloque sin datos minimos | HU03 lo reporta como `BLOQUE_INVALIDO`. |
-| Hora inicio mayor o igual que hora fin | HU03 lo reporta como `BLOQUE_INVALIDO`. |
-| Clases consecutivas | No son cruce duro; pueden generar advertencia solo si no cumplen transicion minima y hay cambio relevante. |
-| Datos MySQL con formato distinto | Requieren mapeo antes de usar HU03. |
-| Falta de datos reales | Se usan datos simulados y se documentan supuestos. |
-| KPI historicos | No disponibles hasta que exista persistencia por corrida. |
+### Relacion con TDD
+HU03 cuenta con pruebas unitarias automatizadas para reglas duras, advertencias operativas, contrato de salida, metricas, adaptacion de datos y rendimiento basico. No existe medicion formal de coverage configurada; la cobertura porcentual queda como mejora pendiente.
 
 ## Trazabilidad minima
 
 | Historia | Requisito | Prueba asociada | Evidencia | Estado |
 |---|---|---|---|---|
-| HU03 - Motor Anti-Cruces | RF07 - Evitar conflictos de horarios para docentes, aulas y grupos. | `backend_node/tests/motorAntiCruces.test.js` | `docs/ejecucion/evidencia-tdd-hu03.md` | Implementada y probada con pruebas unitarias. |
-| Motor CSP | RF06 - Generacion automatica de horarios. | Pendiente ampliar pruebas directas de CSPMotor. | `docs/ejecucion/a003-02-heuristicas-reglas.md` | Implementacion base. |
-| Metricas de calidad | RF09/RNF01 - Medicion de validacion y generacion. | Pruebas HU03 y metricas en memoria. | `docs/ejecucion/metricas-hu03.md` | Parcial; persistencia pendiente. |
-| Gestion de riesgos | A004-03 - Gestion de Riesgos. | Revision documental. | `docs/seguimiento_control/01_Registro_de_Riesgos_y_Oportunidades.md` | Documento de seguimiento. |
-
-## Riesgos tecnicos relacionados
-
-Los riesgos principales del prototipo se documentan en [Registro de Riesgos y Oportunidades](../seguimiento_control/01_Registro_de_Riesgos_y_Oportunidades.md). Para SDD, los riesgos mas relevantes son:
-
-- integracion entre `GeneratorService` y HU03;
-- consistencia entre base de datos, backend y frontend;
-- ausencia de pruebas directas suficientes para `CSPMotor`;
-- KPI y metricas aun no persistidas;
-- validacion limitada en rutas API.
-
-## Limitaciones actuales
+| HU03 - Motor Anti-Cruces | RF07 - Evitar conflictos de horarios para docentes, aulas y grupos. | `backend_node/tests/motorAntiCruces.test.js` | `docs/ejecucion/evidencia-tdd-hu03.md` | Implementada y probada con 23 pruebas unitarias. |
+| HU03 - Motor Anti-Cruces | RNF01 - Rendimiento medible del prototipo. | Prueba basica de rendimiento con 300 sesiones. | `docs/ejecucion/metricas-hu03.md` | Evidencia basica disponible; prueba de carga formal pendiente. |
+| HU03 - Motor Anti-Cruces | RNF05 - Mantenibilidad mediante servicio desacoplado. | Pruebas unitarias sobre servicio puro. | `backend_node/src/services/motorAntiCruces.js` | Implementada sin dependencia directa de frontend ni base de datos. |
+| HU03 - Motor Anti-Cruces | Integracion backend | Adaptacion basica desde `GeneratorService`. | `backend_node/GeneratorService.js` | Parcial: validacion posterior integrada; pruebas HTTP pendientes. |
+| HU03 - Motor Anti-Cruces | RF10 - Priorizacion futura de restricciones. | Advertencia `TRANSICION_INSUFICIENTE`. | `docs/ejecucion/hu03-motor-anti-cruces.md` | Parcial: advertencia implementada; funcion objetivo ponderada pendiente. |
 
 - HU03 no genera horarios por si misma.
-- CSPMotor no cuenta aun con una bateria amplia de pruebas unitarias propias.
-- No existe coverage formal configurado.
+- HU03 no corrige conflictos automaticamente.
 - No existe persistencia historica de KPI.
-- Algunas pruebas de concepto describen mejoras propuestas que requieren implementacion antes de declararse funcionales.
+- La compatibilidad de tipos de aula es una regla tecnica simple y debe alinearse con catalogos institucionales.
+- El frontend no fue modificado para consumir todos los detalles de validacion.
