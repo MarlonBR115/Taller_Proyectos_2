@@ -4,10 +4,12 @@ const cors = require('cors');
 const mysql = require('mysql2/promise');
 const { exec } = require('child_process');
 const path = require('path');
+const greenMiddleware = require('./src/middlewares/greenMiddleware');
 
 const app = express();
-app.use(cors());
+app.use(cors({ exposedHeaders: ['X-Carbon-Footprint-Grams', 'X-Response-Bytes'] }));
 app.use(express.json());
+app.use(greenMiddleware);
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
