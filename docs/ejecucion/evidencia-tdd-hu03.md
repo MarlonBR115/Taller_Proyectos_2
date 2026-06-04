@@ -1,7 +1,7 @@
 # Evidencia TDD - HU03 Motor Anti-Cruces
 
 ## Objetivo
-Demostrar que HU03 se valida mediante pruebas unitarias automatizadas antes de considerarse estable para el prototipo academico. El foco de la evidencia es comprobar restricciones CSP duras, advertencias operativas y salida estructurada.
+Demostrar que HU03 se valida con pruebas automatizadas antes de considerarse estable dentro del prototipo. La evidencia cubre restricciones duras, advertencias operativas, contrato de salida, metricas, normalizacion de datos y adaptacion basica desde `GeneratorService`.
 
 ## Archivo de pruebas
 
@@ -9,14 +9,14 @@ Demostrar que HU03 se valida mediante pruebas unitarias automatizadas antes de c
 backend_node/tests/motorAntiCruces.test.js
 ```
 
+El proyecto usa `node:test`, por lo que no requiere Jest ni dependencias adicionales.
+
 ## Comando de ejecucion
 
 ```bash
 cd backend_node
-npm test
+npm.cmd test
 ```
-
-En Windows PowerShell puede usarse `npm.cmd test` si la politica local bloquea `npm.ps1`.
 
 ## Casos TDD cubiertos
 | Caso | Proposito | Resultado esperado |
@@ -24,32 +24,41 @@ En Windows PowerShell puede usarse `npm.cmd test` si la politica local bloquea `
 | Horario valido sin cruces | Validar camino feliz. | `valido = true`, `totalConflictos = 0`. |
 | Cruce docente | Probar restriccion dura de docente. | `CRUCE_DOCENTE`. |
 | Cruce aula | Probar restriccion dura de aula. | `CRUCE_AULA`. |
-| Cruce grupo | Probar restriccion dura de grupo. | `CRUCE_GRUPO`. |
+| Cruce grupo | Probar restriccion dura de grupo/seccion. | `CRUCE_GRUPO`. |
 | Dias diferentes | Evitar falsos positivos. | Sin conflictos. |
 | Clases consecutivas | Confirmar que fin igual a inicio no es solapamiento. | Sin conflictos. |
-| Bloque invalido por horas | Validar `horaInicio < horaFin`. | `BLOQUE_INVALIDO`. |
-| Bloque invalido por datos minimos | Validar recursos obligatorios. | `BLOQUE_INVALIDO`. |
-| Margen suficiente | Comprobar transicion operativa viable. | Sin advertencias. |
+| Hora invalida | Validar formato horario. | `DATOS_INVALIDOS`. |
+| `horaInicio >= horaFin` | Validar rango temporal. | `DATOS_INVALIDOS`. |
+| Falta docente | Validar dato obligatorio. | `DATOS_INVALIDOS`. |
+| Falta aula | Validar dato obligatorio. | `DATOS_INVALIDOS`. |
+| Falta dia | Validar dato obligatorio. | `DATOS_INVALIDOS`. |
+| Alias de campos | Aceptar datos desde backend/MySQL. | Horario valido. |
+| Margen suficiente | Comprobar transicion viable. | Sin advertencias. |
 | Margen insuficiente | Detectar traslado inviable. | `TRANSICION_INSUFICIENTE`. |
 | Multiples conflictos | Confirmar acumulacion de conflictos. | Tres conflictos esperados. |
-| Salida publica | Proteger contrato de `validateSchedule`. | Campos estructurados. |
+| Sobrecupo | Validar capacidad contra demanda estimada. | `SOBRECUPOS_AULA`. |
+| Tipo de aula incompatible | Validar tipo de aula contra tipo de sesion. | `TIPO_AULA_INCOMPATIBLE`. |
+| Datos opcionales incompletos | Reportar advertencia configurable. | `DATOS_OPCIONALES_INCOMPLETOS`. |
 | Metricas | Verificar indicadores de validacion. | Totales y conteos por tipo. |
-| Rendimiento basico | Ejecutar 300 bloques sin conflictos. | Tiempo menor a 100 ms en entorno local de prueba. |
+| No mutacion | Proteger arreglo de entrada. | Entrada original sin cambios. |
+| Adaptacion GeneratorService | Validar adaptador sin BD real. | Campos normalizados. |
+| Entrada no arreglo en adaptador | Robustez del adaptador. | Lista vacia. |
+| Rendimiento basico | Ejecutar 300 sesiones sin conflictos. | Tiempo menor a 100 ms local. |
 
 ## Resultado observado
 Ultima ejecucion local:
 
 ```text
-tests 16
-pass 16
+tests 23
+pass 23
 fail 0
-duration_ms 88.0332
+duration_ms 89.5146
 ```
 
-## Observaciones
-- El proyecto usa `node:test`, por lo que no requiere Jest ni dependencias adicionales para las pruebas actuales.
-- No existe script de coverage en `backend_node/package.json`.
-- Si se requiere cobertura mas adelante, una opcion compatible seria agregar una herramienta como `c8` y un script `coverage`, sin cambiar el runner actual:
+## Cobertura
+No existe script formal de coverage en `backend_node/package.json`. Por tanto, la evidencia actual corresponde a pruebas unitarias ejecutadas y verificables; la medicion porcentual de cobertura queda como mejora pendiente.
+
+Una opcion futura seria agregar una herramienta como `c8` y un script `coverage`, sin reemplazar el runner actual:
 
 ```json
 {
@@ -59,5 +68,3 @@ duration_ms 88.0332
   }
 }
 ```
-
-No se agrego esta dependencia porque el alcance solicitado prioriza no introducir cambios innecesarios en la configuracion del proyecto.

@@ -34,3 +34,7 @@ HU03 no genera horarios, no resuelve conflictos automaticamente y no integra bas
 
 ## Regla de coordinacion
 Los cambios sobre HU03 deben conservar la compatibilidad de `validateSchedule(schedule)` y `validarCrucesHorario(bloques)`, mantener pruebas unitarias actualizadas y documentar cualquier nueva restriccion como dura o blanda.
+
+## Relacion con el proceso academico integral
+
+Los roles no solo participan en la generacion de horarios. Tambien intervienen en la planificacion de oferta, revision de restricciones, seguimiento de riesgos, medicion de KPI y aprobacion humana de excepciones. La automatizacion del sistema debe considerarse apoyo a la decision academica, no sustitucion completa de los responsables institucionales.

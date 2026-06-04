@@ -1,9 +1,16 @@
 const CSPOptimizer = require('./src/services/CSPMotor');
-const validarCrucesHorario = require('./src/services/motorAntiCruces');
+const {
+    adaptarHorarioGenerado,
+    validarAntiCruces
+} = require('./src/services/motorAntiCruces');
 
 class GeneratorService {
     constructor(pool) {
         this.pool = pool;
+    }
+
+    adaptarHorariosParaValidacion(horarios) {
+        return adaptarHorarioGenerado(horarios);
     }
 
     async generate() {
@@ -79,9 +86,19 @@ class GeneratorService {
             );
         }
 
+        let validation = null;
+
         try {
             const [finalSchedules] = await this.pool.execute(`
-                SELECT s.*, r.name as aula, c.name as materia, t.name as profesor
+                SELECT s.*,
+                       sg.teacher_id,
+                       sg.course_id,
+                       sg.quota,
+                       r.name as aula,
+                       r.capacity as capacidad_aula,
+                       r.room_type as tipo_aula,
+                       c.name as materia,
+                       t.name as profesor
                 FROM schedules s
                 JOIN student_groups sg ON s.group_id = sg.id
                 JOIN courses c ON sg.course_id = c.id
@@ -92,19 +109,34 @@ class GeneratorService {
 
             const horarioValidar = finalSchedules.map(s => ({
                 id: s.id,
+                docenteId: s.teacher_id,
+                aulaId: s.room_id,
+                grupoId: s.group_id,
+                cursoId: s.course_id,
                 dia: s.day_of_week,
                 horaInicio: s.start_time,
                 horaFin: s.end_time,
+                capacidadAula: s.capacidad_aula,
+                estudiantesEstimados: s.quota,
+                tipoAula: s.tipo_aula,
+                tipoSesion: 'theory',
                 profesor: s.profesor,
                 aula: s.aula,
                 materia: s.materia
             }));
 
-            const validadorResult = validarCrucesHorario(horarioValidar);
+            const validadorResult = validarAntiCruces(this.adaptarHorariosParaValidacion(horarioValidar));
+            validation = {
+                valido: validadorResult.valido,
+                totalConflictos: validadorResult.totalConflictos,
+                totalAdvertencias: validadorResult.totalAdvertencias,
+                metricas: validadorResult.metricas
+            };
+
             if (!validadorResult.valido) {
-                console.warn("⚠️ Validador Anti-Cruces detectó advertencias:", validadorResult.errores);
+                console.warn("Validador Anti-Cruces detecto conflictos:", validadorResult.totalConflictos);
             } else {
-                console.log("✅ Validador Anti-Cruces: Horario 100% libre de cruces.");
+                console.log("Validador Anti-Cruces: horario libre de conflictos duros.");
             }
         } catch(e) {
             console.error("Error en validador anti-cruces:", e);
@@ -116,7 +148,8 @@ class GeneratorService {
             message: response.message,
             errors: [],
             total_assigned: response.metrics.assigned_groups,
-            metrics: response.metrics
+            metrics: response.metrics,
+            validation
         };
     }
 }
