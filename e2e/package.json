@@ -1,0 +1,16 @@
+{
+  "name": "e2e-tests",
+  "version": "1.0.0",
+  "description": "Pruebas E2E con Playwright para OptiClass - Sistema de Generación de Horarios",
+  "scripts": {
+    "test": "playwright test",
+    "test:golden": "playwright test tests/golden-path.spec.js --reporter=html",
+    "test:happy": "playwright test tests/happy-path.spec.js --reporter=html",
+    "test:unhappy": "playwright test tests/unhappy-path.spec.js --reporter=html",
+    "test:all": "playwright test --reporter=html",
+    "report": "playwright show-report playwright-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}
