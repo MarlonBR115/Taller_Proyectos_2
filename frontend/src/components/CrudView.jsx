@@ -177,7 +177,7 @@ const CrudView = ({ config }) => {
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {config.columns.filter(c => c.key !== 'id').map(col => (
                 <div key={col.key} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                  <label style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--text-main)' }}>{col.label}</label>
+                  <label htmlFor={col.key} style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--text-main)' }}>{col.label}</label>
                   
                   {col.type === 'checkboxes' ? (
                     <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
@@ -194,6 +194,7 @@ const CrudView = ({ config }) => {
                     </div>
                   ) : (
                     <input 
+                      id={col.key}
                       type={col.type || 'text'}
                       value={formData[col.key] || ''}
                       onChange={(e) => handleInputChange(e, col)}
