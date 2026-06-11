@@ -10,6 +10,8 @@ Esta carpeta contiene evidencias tecnicas de implementacion, pruebas, metricas y
 | [Evidencia TDD HU03](evidencia-tdd-hu03.md) | Registra pruebas unitarias de HU03 con `node:test`. | Vigente; coverage formal pendiente. |
 | [Metricas HU03](metricas-hu03.md) | Explica metricas calculadas por el motor anti-cruces. | Vigente; persistencia historica pendiente. |
 | [A003-02 - Heuristicas y reglas](a003-02-heuristicas-reglas.md) | Documenta restricciones duras/blandas y heuristicas MRV/LCV del `CSPMotor`. | Vigente como evidencia tecnica del motor. |
+| [TP2UCP-41 - Tests de integracion API](tp2ucp-41-tests-integracion-api.md) | Describe alcance, estrategia y endpoints probados con Supertest. | Implementado con pool falso; persistencia real pendiente. |
+| [Evidencia tests de integracion API](evidencia-tests-integracion-api.md) | Registra resultado de pruebas API backend. | Vigente; coverage formal pendiente. |
 | [Requerimientos de ejecucion](REQUERIMENTOS.md) | Resume el alcance tecnico de ejecucion y redirige a los requerimientos principales. | Documento de apoyo. |
 
 ## Pruebas de concepto
