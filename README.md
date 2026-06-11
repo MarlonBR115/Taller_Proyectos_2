@@ -14,6 +14,8 @@ El sistema genera, valida, mide y recomienda. No reemplaza totalmente la interve
 7. [📚 Documentación del Proyecto](#7--documentación-del-proyecto)
 8. [🚀 Guía Rápida de Inicio](#8--guía-rápida-de-inicio)
 
+(Evaluación de GreenSoftware en las ramas test-greensoftware y test-greensoftware-mejoras)
+
 La planificacion academica flexible combina demanda de cursos, docentes, aulas, cupos, disponibilidad, secciones y restricciones de horario. Sin apoyo tecnico, el proceso puede generar cruces, sobreuso de aulas, baja trazabilidad y dificultad para justificar decisiones academicas.
 
 ## 1. Descripción General
