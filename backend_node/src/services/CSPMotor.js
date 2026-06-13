@@ -69,63 +69,60 @@ class CSPOptimizer {
     return shifts.includes(currentShift);
   }
 
-  // Motor de Búsqueda CSP (Backtracking con Heurísticas LCV)
-  solve(groupIndex = 0, currentAssignments = []) {
-    if (groupIndex === this.groups.length) {
-      return currentAssignments;
-    }
+  // Motor de Búsqueda CSP Optimizado (Algoritmo Voraz / Fast Greedy)
+  solve() {
+    const currentAssignments = [];
+    this.unassignedGroups = []; // Guardamos los no asignados aquí
 
-    const group = this.groups[groupIndex];
-    const requiredHours = group.weekly_hours || 1; 
+    for (let groupIndex = 0; groupIndex < this.groups.length; groupIndex++) {
+      const group = this.groups[groupIndex];
+      const requiredHours = group.weekly_hours || 1; 
 
-    // Recopilar todas las asignaciones válidas para aplicar LCV (Least Constraining Value)
-    let validAssignments = [];
+      // Recopilar todas las asignaciones válidas para aplicar LCV (Least Constraining Value)
+      let validAssignments = [];
 
-    for (const room of this.rooms) {
-      for (const day of this.settings.allowed_days) {
-        
-        const availableSlots = this.getAvailableSlotsForDay(day); 
+      for (const room of this.rooms) {
+        for (const day of this.settings.allowed_days) {
+          
+          const availableSlots = this.getAvailableSlotsForDay(day); 
 
-        for (let i = 0; i <= availableSlots.length - requiredHours; i++) {
-          // A003-02: Integridad de sesiones (Bloques contiguos).
-          // Se toman los slots consecutivos garantizando que la sesión no se fraccione.
-          const timeSlots = availableSlots.slice(i, i + requiredHours);
+          for (let i = 0; i <= availableSlots.length - requiredHours; i++) {
+            // Integridad de sesiones (Bloques contiguos)
+            const timeSlots = availableSlots.slice(i, i + requiredHours);
 
-          if (this.isValidAssignment(group, room, day, timeSlots)) {
-            const assignment = { 
-              group, 
-              room, 
-              day, 
-              timeSlots,
-              start_time: timeSlots[0],
-              end_time: timeSlots[timeSlots.length - 1] + 1
-            };
-            
-            // Calculamos el score basado en satisfacción del estudiante y reglas blandas
-            const score = this.calculateStudentSatisfactionScore(assignment, currentAssignments);
-            validAssignments.push({ assignment, score });
+            if (this.isValidAssignment(group, room, day, timeSlots)) {
+              const assignment = { 
+                group, 
+                room, 
+                day, 
+                timeSlots,
+                start_time: timeSlots[0],
+                end_time: timeSlots[timeSlots.length - 1] + 1
+              };
+              
+              // Calculamos el score basado en satisfacción del estudiante y reglas blandas
+              const score = this.calculateStudentSatisfactionScore(assignment, currentAssignments);
+              validAssignments.push({ assignment, score });
+            }
           }
         }
       }
+
+      // Ordenar opciones de asignación por score descendente (mejor satisfacción primero)
+      validAssignments.sort((a, b) => b.score - a.score);
+
+      if (validAssignments.length > 0) {
+        // Enfoque Greedy: Tomamos la mejor opción inmediatamente y no miramos atrás
+        const bestOption = validAssignments[0].assignment;
+        this.markAsOccupied(bestOption.group, bestOption.room, bestOption.day, bestOption.timeSlots);
+        currentAssignments.push(bestOption);
+      } else {
+        // No hay espacio físico/temporal para este grupo, se deja sin asignar
+        this.unassignedGroups.push(group);
+      }
     }
 
-    // Ordenar opciones de asignación por score descendente (mejor satisfacción primero)
-    validAssignments.sort((a, b) => b.score - a.score);
-
-    // Intentar las asignaciones en el orden heurístico
-    for (const { assignment } of validAssignments) {
-      this.markAsOccupied(assignment.group, assignment.room, assignment.day, assignment.timeSlots);
-      currentAssignments.push(assignment);
-
-      const result = this.solve(groupIndex + 1, currentAssignments);
-      if (result) return result;
-
-      // Backtracking
-      this.markAsFree(assignment.group, assignment.room, assignment.day, assignment.timeSlots);
-      currentAssignments.pop();
-    }
-
-    return null; 
+    return currentAssignments; 
   }
 
   // A003-02: Criterios de desempate basados en satisfacción del estudiante
@@ -201,14 +198,16 @@ class CSPOptimizer {
     const executionTime = Math.round(performance.now() - this.startTime);
     
     return {
-      status: assignments ? "success" : "partial",
-      message: assignments ? "Horario generado exitosamente." : "No se pudo generar un horario completo.",
+      status: this.unassignedGroups.length === 0 ? "success" : "partial",
+      message: this.unassignedGroups.length === 0 
+        ? "Horario generado exitosamente." 
+        : `Horario generado parcialmente. ${this.unassignedGroups.length} grupos quedaron sin asignar por falta de recursos.`,
       schedules: assignments || [], 
-      unassigned_groups: [],
+      unassigned_groups: this.unassignedGroups || [],
       metrics: {
         execution_time_ms: executionTime,
         total_groups: this.groups.length,
-        assigned_groups: assignments ? this.groups.length : 0 
+        assigned_groups: assignments ? assignments.length : 0 
       }
     };
   }

@@ -62,19 +62,19 @@ class GeneratorService {
         };
 
         const optimizer = new CSPOptimizer(inputData);
-        console.log("Iniciando Motor CSP (Backtracking)...");
+        console.log("Iniciando Motor CSP Optimizado (Fast Greedy)...");
         const assignments = optimizer.solve();
 
-        if (!assignments) {
+        if (!assignments || assignments.length === 0) {
             return {
                 success: false,
-                message: 'Error de Optimización: No hay recursos suficientes (aulas o disponibilidad de profesores) para generar un horario sin cruces.',
-                errors: ['No se encontró solución viable.'],
+                message: 'Error de Optimización: No se pudo asignar ningún grupo (posible falta total de recursos).',
+                errors: ['No se encontró solución parcial viable.'],
                 total_assigned: 0
             };
         }
 
-        console.log(`CSP encontró solución con ${assignments.length} asignaciones. Guardando en BD...`);
+        console.log(`Greedy CSP encontró solución con ${assignments.length} asignaciones. Grupos sin asignar: ${optimizer.unassignedGroups.length}. Guardando en BD...`);
 
         for (const assignment of assignments) {
             const startStr = `${assignment.start_time.toString().padStart(2, '0')}:00:00`;
@@ -148,6 +148,7 @@ class GeneratorService {
             message: response.message,
             errors: [],
             total_assigned: response.metrics.assigned_groups,
+            unassigned_groups: response.unassigned_groups,
             metrics: response.metrics,
             validation
         };
