@@ -3,6 +3,9 @@ dist/
 build/
 .env
 coverage/
+playwright-report/
+test-results/
+.scannerwork/
 .vscode/
 .idea/
 *.log
