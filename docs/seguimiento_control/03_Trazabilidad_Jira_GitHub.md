@@ -21,6 +21,9 @@ Cada tarea relevante deberia relacionar:
 | A003-04 | HU03 / Motor Anti-Cruces y documentacion SDD | pendiente | pendiente | `backend_node/src/services/motorAntiCruces.js`; `backend_node/tests/motorAntiCruces.test.js`; `docs/ejecucion/hu03-motor-anti-cruces.md`; `docs/sdd/specs.md` | `docs/ejecucion/evidencia-tdd-hu03.md`; `docs/ejecucion/metricas-hu03.md` | Implementado parcialmente y documentado. |
 | A004-03 | Gestion de Riesgos | pendiente | pendiente | `docs/seguimiento_control/01_Registro_de_Riesgos_y_Oportunidades.md` | Riesgos tecnicos, operativos, oportunidades y plan de seguimiento. | Documentado. |
 | TP2UCP-41 | Test de integracion en API (Backend) | `feature/tp2ucp-41-tests-integracion-api-backend` | pendiente | `backend_node/src/app.js`; `backend_node/server.js`; `backend_node/tests/api.integration.test.js`; `docs/ejecucion/tp2ucp-41-tests-integracion-api.md`; `docs/ejecucion/evidencia-tests-integracion-api.md` | Pruebas Supertest con `node:test`; resultado `36 pass`, `0 fail`. | Implementado con pool falso; persistencia real pendiente para BD test separada. |
+| AT002 | Revision de codigo con SonarQube y calidad | pendiente | pendiente | Configuracion y `docs/calidad/` sujetos a integracion de la rama AT002 | Coverage, SonarQube, OWASP, WCAG y SUS requieren evidencia de la rama integrada. | Pendiente de consolidacion en main. |
+| A005 | Documentacion - Registro de Impedimentos y Documentacion de Capacitacion | `feature/a005-impedimentos-capacitacion` | pendiente | `docs/seguimiento_control/04_Registro_de_Impedimentos.md`; `docs/capacitacion/README.md`; `docs/capacitacion/01_guia_instalacion_ejecucion.md`; `docs/capacitacion/02_guia_backend_api.md`; `docs/capacitacion/03_guia_pruebas_calidad.md`; `docs/capacitacion/04_guia_operacion_academica.md`; `docs/capacitacion/05_guia_mantenimiento.md` | Registro vigente, guias de transferencia e indices documentales. | En desarrollo. |
+| CIERRE | Consolidacion de control y cierre del proyecto | pendiente | pendiente | `docs/cierre/`; `docs/seguimiento_control/05_Registro_de_Incidentes.md`; `docs/seguimiento_control/06_Registro_de_Defectos.md`; `docs/seguimiento_control/07_Registro_de_Supuestos.md` | Informe final, lecciones, acta revisada, SOW y checklist de rubrica. | En revision. |
 | DOC-INT | Reorganizacion documental academica integral | pendiente | pendiente | `README.md`; `docs/README.md`; `docs/01_vision_general.md`; `docs/02_mapa_proceso_academico.md`; `docs/03_requerimientos.md`; `docs/04_supuestos_y_restricciones.md` | Indices, requerimientos, KPI y trazabilidad documental. | En revision. |
 
 ## Relacion con pruebas
@@ -32,7 +35,7 @@ cd backend_node
 npm.cmd test
 ```
 
-No se declara coverage formal porque no existe configuracion de cobertura en el proyecto.
+El coverage formal y los quality gates deben confirmarse cuando la configuracion AT002 este integrada y ejecutada en la rama principal.
 
 ## Relacion con metricas
 

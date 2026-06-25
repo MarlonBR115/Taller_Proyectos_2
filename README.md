@@ -69,6 +69,8 @@ El objetivo general es implementar un sistema completo y robusto para la resoluc
 - [Ejecucion y evidencias](docs/ejecucion/README.md)
 - [Seguimiento y control](docs/seguimiento_control/README.md)
 - [Calidad y auditoria AT002](docs/calidad/README.md)
+- [Capacitacion y transferencia](docs/capacitacion/README.md)
+- [Control y cierre](docs/cierre/README.md)
 - [Investigacion base](docs/referencias/01_investigacion_base.md)
 
 ## Estado del proyecto

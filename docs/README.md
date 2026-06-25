@@ -46,26 +46,54 @@ Este indice es la puerta de entrada a la documentacion academica y tecnica del p
 | [Riesgos y oportunidades](seguimiento_control/01_Registro_de_Riesgos_y_Oportunidades.md) | Riesgos tecnicos, operativos y oportunidades. |
 | [KPI y Metricas](seguimiento_control/02_KPI_y_Metricas.md) | KPI implementados, parciales y propuestos. |
 | [Trazabilidad Jira/GitHub](seguimiento_control/03_Trazabilidad_Jira_GitHub.md) | Relacion entre tareas, archivos, evidencias y estado. |
+| [Registro de Impedimentos](seguimiento_control/04_Registro_de_Impedimentos.md) | Impedimentos vigentes, responsables y acciones de desbloqueo. |
+| [Registro de Incidentes](seguimiento_control/05_Registro_de_Incidentes.md) | Incidentes reales y acciones correctivas. |
+| [Registro de Defectos](seguimiento_control/06_Registro_de_Defectos.md) | Defectos tecnicos/documentales y validacion. |
+| [Registro de Supuestos](seguimiento_control/07_Registro_de_Supuestos.md) | Supuestos controlados y estado. |
 
-## 6. Investigacion y referencias
+## 6. Capacitacion y transferencia
+
+| Documento | Proposito |
+|---|---|
+| [Capacitacion README](capacitacion/README.md) | Ruta de aprendizaje para instalar, operar, probar y mantener el sistema. |
+
+## 7. Calidad
+
+| Documento | Proposito |
+|---|---|
+| [Evidencia TDD HU03](ejecucion/evidencia-tdd-hu03.md) | Evidencia verificable de pruebas unitarias. |
+| [Evidencia de integracion API](ejecucion/evidencia-tests-integracion-api.md) | Evidencia de pruebas API con Supertest. |
+| [Impedimentos de calidad](seguimiento_control/04_Registro_de_Impedimentos.md) | Coverage, SonarQube, WCAG y SUS pendientes o en integracion. |
+
+Consultar `docs/calidad/` cuando la rama AT002 este integrada al flujo principal.
+
+## 8. Control y cierre
+
+| Documento | Proposito |
+|---|---|
+| [Cierre README](cierre/README.md) | Indice de informe final, lecciones, acta, SOW y checklist. |
+| [Informe Final](cierre/01_Informe_Final_Proyecto.md) | Consolidacion de alcance, metricas y entregables. |
+| [Checklist Sobresaliente](cierre/05_Checklist_Cierre_Sobresaliente.md) | Mapa de rubrica y evidencia. |
+
+## 9. Investigacion y referencias
 
 | Documento | Proposito |
 |---|---|
 | [Referencias README](referencias/README.md) | Indice de referencias. |
 | [Investigacion base](referencias/01_investigacion_base.md) | Conceptos y sistemas de referencia. |
 
-## 7. Calidad y auditoria
+## 10. Calidad y auditoria
 
 | Documento | Proposito |
 |---|---|
 | [Calidad AT002](calidad/README.md) | Preparacion de SonarQube, OWASP, WCAG, SUS, testing y cobertura. |
 
-## 8. Documentos historicos
+## 11. Documentos historicos
 
 | Carpeta o documento | Criterio de uso |
 |---|---|
 | [inicio/](inicio/) | Resumenes iniciales del proyecto. |
-| [cierre/](cierre/) | Espacio para documentos de cierre. |
 | [Otros/](Otros/) | Material heredado; si duplica SDD, usar `docs/sdd/` como fuente vigente. |
 | [seguimiento_control/03_Informe_Estado_Sprint_1.md](seguimiento_control/03_Informe_Estado_Sprint_1.md) | Evidencia historica de Sprint 1. |
 | [seguimiento_control/04_Minuta_Reunion_Sprint_1.md](seguimiento_control/04_Minuta_Reunion_Sprint_1.md) | Evidencia historica de reunion. |
+| [seguimiento_control/02_Registro_de_Impedimentos.md](seguimiento_control/02_Registro_de_Impedimentos.md) | Registro historico anterior al documento vigente de A005. |
