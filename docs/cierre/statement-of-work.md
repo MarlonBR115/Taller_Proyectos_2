@@ -180,10 +180,3 @@ Por medio de la presente, se declara que el trabajo descrito en este Statement o
 
 Quedan identificados como trabajo futuro o fuera del alcance del prototipo los requisitos propuestos (RP-01 a RP-08) y las mejoras documentadas en la sección 8.2 del Informe de Lecciones Aprendidas.
 
-| Rol | Nombre |
-|---|---|---|
-| Product Owner | Marlon Bonifacio Rojas |
-| Scrum Master | Alejandro Espiritu Campos |
-| Frontend Lead | Fabian Enrique Guzman Choque |
-| Backend Lead | Luis Enrique Quispe Campos |
-| Documentación y Calidad | Rafael Fernandez Duran |
