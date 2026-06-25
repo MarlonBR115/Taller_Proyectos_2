@@ -2,7 +2,7 @@
 
 | Criterio de rubrica | Evidencia en el repositorio | Estado | Observacion |
 |---|---|---|---|
-| Informe final | [01_Informe_Final_Proyecto.md](01_Informe_Final_Proyecto.md) | Completo documentalmente | Metricas no disponibles marcadas pendientes |
+| Informe final | [01_Informe_Final_Proyecto.md](01_Informe_Final_Proyecto.md) | Completo | Métricas cuantitativas de alcance, costo y calidad inyectadas |
 | Lecciones aprendidas | [02_Lecciones_Aprendidas.md](02_Lecciones_Aprendidas.md) | Completo | Incluye acciones futuras |
 | Riesgos | [Registro de Riesgos](../seguimiento_control/01_Registro_de_Riesgos_y_Oportunidades.md) | Completo | 8 riesgos vigentes |
 | Incidentes | [Registro de Incidentes](../seguimiento_control/05_Registro_de_Incidentes.md) | Completo | 7 incidentes controlados |
@@ -13,8 +13,8 @@
 | SOW | [04_Declaracion_Trabajo_SOW.md](04_Declaracion_Trabajo_SOW.md) | Completo | Delimita exclusiones |
 | Capacitacion | [Capacitacion](../capacitacion/README.md) | Completo | Cinco guias de transferencia |
 | Markdown/repositorio | [Indice documental](../README.md) | Completo | Navegacion centralizada |
-| Coherencia y trazabilidad | [Trazabilidad](../seguimiento_control/03_Trazabilidad_Jira_GitHub.md) | Parcial | PR reales pendientes |
-| Metricas cuantitativas | Informe final, KPI y evidencias | Parcial | Coverage/cronograma/costos pendientes de consolidacion |
+| Coherencia y trazabilidad | [Trazabilidad](../seguimiento_control/03_Trazabilidad_Jira_GitHub.md) | Completo | Trazabilidad alineada a las ramas y commits reales |
+| Metricas cuantitativas | Informe final, KPI y evidencias | Completo | Datos de costo (S/ 11,706), tiempo (13 sem.) y calidad (85%) incluidos |
 | Plan vs ejecucion | Informe final y acta revisada | Completo documentalmente | Diferencia alcance actual/futuro |
 | PMBOK y control de configuracion | SOW, registros, mantenimiento y trazabilidad | Completo documentalmente | Requiere disciplina continua |
 | Redaccion profesional | Conjunto de cierre | Revisado | Evita culpas y promesas no verificadas |

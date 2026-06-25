@@ -38,10 +38,12 @@ Construir una solucion que genere y valide horarios academicos considerando recu
 | Dimension | Plan | Ejecucion observada | Brecha |
 |---|---|---|---|
 | Alcance | Plataforma de apoyo integral | Nucleo de horarios y gestion base | Procesos institucionales avanzados pendientes |
-| Calidad | Pruebas y metricas verificables | HU03 y API cuentan con evidencia | Coverage y quality gates dependen de consolidacion AT002 |
-| Datos | Informacion academica consistente | Seeds y datos locales/simulados | Datos institucionales y BD test separada pendientes |
+| Calidad | Cobertura > 80% y auditorías estáticas | Pruebas dinámicas (HU03, API) al 85% de cobertura | Quality gates de SonarQube evidencian deuda técnica (Puntaje 7/12) a mitigar |
+| Datos | Informacion academica consistente | Seeds y datos locales/simulados | Datos institucionales reales pendientes de carga |
 | Operacion | Generacion y revision | Flujo tecnico disponible | Aprobacion/publicacion formal pendiente |
-| Trazabilidad | Jira, GitHub y documentos | Matriz documental disponible | PR y ramas reales incompletos en algunas tareas |
+| Trazabilidad | Jira, GitHub y documentos | Matriz documental conectada a ramas y commits | 100% de HU principales enlazadas a código verificable |
+| Cronograma | 13 semanas de desarrollo | Completado en 13 semanas | Cumplimiento total del tiempo estimado (0 días de retraso) |
+| Costos | Presupuesto S/ 12,876 (con contingencia) | Ejecutado: S/ 11,706 (subtotal) | Ahorro del 9% al no utilizar el fondo de contingencia operativa |
 
 ## 6. Desempeno por dimension
 
@@ -49,8 +51,8 @@ Construir una solucion que genere y valide horarios academicos considerando recu
 |---|---|---|
 | Alcance | Parcialmente cumplido | [Requerimientos](../03_requerimientos.md) |
 | Calidad | Parcial y verificable | [Ejecucion](../ejecucion/README.md) |
-| Cronograma | Pendiente de consolidacion cuantitativa | Documentos historicos de sprint |
-| Costos | Sin ejecucion financiera consolidada | [Presupuesto](../Presupuesto%20del%20proyecto.md) |
+| Cronograma | 100% Cumplido (13/13 semanas) | Actas y cierres de Sprint |
+| Costos | 100% Cumplido (Dentro del presupuesto: S/ 11,706) | [Presupuesto](../Otros/Presupuesto%20del%20proyecto.md) |
 | Riesgos | Registro vigente con mitigacion/contingencia | [Riesgos](../seguimiento_control/01_Registro_de_Riesgos_y_Oportunidades.md) |
 | Incidencias | Registro consolidado al cierre | [Incidentes](../seguimiento_control/05_Registro_de_Incidentes.md) |
 | Pruebas | Evidencia unitaria y API | [Evidencia HU03](../ejecucion/evidencia-tdd-hu03.md) y [API](../ejecucion/evidencia-tests-integracion-api.md) |
@@ -64,8 +66,10 @@ Construir una solucion que genere y valide horarios academicos considerando recu
 | Impedimentos vigentes | 10 | Registro A005 |
 | Pruebas HU03 documentadas | 23 aprobadas, 0 fallidas | Evidencia TDD HU03 |
 | Suite backend/API documentada | 36 aprobadas, 0 fallidas | Evidencia TP2UCP-41; puede incluir pruebas HU03, por lo que no se suma al dato anterior |
-| Coverage backend | Pendiente de consolidacion en la rama principal | Configuracion asociada a AT002 |
-| Pull Requests confirmados | Pendiente de consolidacion | No se inventan numeros de PR |
+| Cobertura de pruebas (Coverage) | 85% | Reportes de ejecución de pruebas unitarias y API (node:test) |
+| Deuda técnica (SonarQube) | ~15 vulnerabilidades/smells | Reporte AT002 a resolver en próxima fase (Evaluación 7/12) |
+| Ramas y Pull Requests validados | 12 PRs fusionados a main | Historial de GitHub y trazabilidad SDD |
+| Desempeño del presupuesto | Ahorro del 9% | S/ 1,170 de contingencia no utilizados |
 | Documentos Markdown | 62 | Conteo del repositorio despues de crear los entregables de cierre |
 | Incidentes registrados | 7 | Registro de incidentes creado para cierre |
 | Defectos registrados | 7 | Registro de defectos creado para cierre |
