@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test tests/RF01_04_gestion_entidades.test.js tests/RF08_exportacion_visualizacion.test.js tests/api.integration.test.js tests/motorAntiCruces.test.js",
+    "test:mysql": "node --test tests/RF06_07_motor_csp.test.js",
+    "test:all": "node --test",
+    "test:coverage": "c8 --reporter=text --reporter=lcov node --test tests/RF01_04_gestion_entidades.test.js tests/RF08_exportacion_visualizacion.test.js tests/api.integration.test.js tests/motorAntiCruces.test.js"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +21,7 @@
     "mysql2": "^3.22.3"
   },
   "devDependencies": {
+    "c8": "^11.0.0",
     "supertest": "^7.2.2"
   }
 }

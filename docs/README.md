@@ -54,7 +54,13 @@ Este indice es la puerta de entrada a la documentacion academica y tecnica del p
 | [Referencias README](referencias/README.md) | Indice de referencias. |
 | [Investigacion base](referencias/01_investigacion_base.md) | Conceptos y sistemas de referencia. |
 
-## 7. Documentos historicos
+## 7. Calidad y auditoria
+
+| Documento | Proposito |
+|---|---|
+| [Calidad AT002](calidad/README.md) | Preparacion de SonarQube, OWASP, WCAG, SUS, testing y cobertura. |
+
+## 8. Documentos historicos
 
 | Carpeta o documento | Criterio de uso |
 |---|---|
