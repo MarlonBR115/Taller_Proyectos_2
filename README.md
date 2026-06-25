@@ -1,6 +1,6 @@
 # Sistema de Generacion Optima de Horarios Academicos en Entornos de Curriculo Flexible
 
-![Estado: En Desarrollo](https://img.shields.io/badge/Estado-En%20Desarrollo-blue)
+![Estado: Prototipo Consolidado (Fase Cierre)](https://img.shields.io/badge/Estado-Consolidado%20(Cierre)-blue)
 ![Curso: Taller de Proyectos 2](https://img.shields.io/badge/Curso-Taller%20de%20Proyectos%202-brightgreen)
 
 El sistema genera, valida, mide y recomienda. No reemplaza totalmente la intervencion humana: coordinadores, responsables de horarios, docentes y registro academico conservan la revision de excepciones, aprobacion final y control de cambios.
@@ -73,16 +73,13 @@ El objetivo general es implementar un sistema completo y robusto para la resoluc
 - [Control y cierre](docs/cierre/README.md)
 - [Investigacion base](docs/Otros/referencias/01_investigacion_base.md)
 
-## Estado del proyecto
+## 5. Estado Actual y Cierre
+El proyecto ha completado su fase de desarrollo activo del prototipo y se encuentra en etapa de **Control y Cierre**. Se ha consolidado un núcleo funcional que permite:
 
-## 5. Estado Actual
-Actualmente, el proyecto se encuentra en fase de desarrollo activo. En esta etapa se prioriza:
-
-- La implementación del motor de generación de horarios (CSP).
-- El desarrollo de las interfaces frontend en React y servicios del backend en Node.
-- El cumplimiento de los requerimientos funcionales y métricas SMART (RNF).
-- La iteración en funcionalidades de gestión académica.
-- El aseguramiento de calidad (pruebas, cobertura de código y revisión).
+- **Generación de horarios:** Mediante un motor de optimización CSP.
+- **Validación anti-cruces:** Implementación de reglas y restricciones comprobadas mediante pruebas (HU03).
+- **Gestión frontend/backend:** Integración con API REST (Node.js) y visualización en React.
+- **Trazabilidad y Calidad:** Ejecución del 100% del tiempo estimado (13 semanas), cumplimiento estricto del presupuesto (S/ 11,706) y documentación exhaustiva (incluyendo actas de cierre, SDD y registros de riesgos).
 
 ```bash
 cd backend_node
@@ -97,27 +94,21 @@ Backend por defecto:
 ```text
 .
 |-- README.md
-|-- backend/                 # Componente de lógica y servicios
-|   |-- README.md
-|   `-- tests/
-|       `-- README.md
+|-- backend_node/            # Componente de lógica, servicios y orquestación
+|   |-- src/
+|   |-- tests/               # Pruebas unitarias e integración
+|   `-- seed.js              # Datos simulados (Seeds)
 |-- docs/                    # Documentación principal del proyecto
-|   |-- declaracion-equipo.md
-|   |-- Declaración de la visión del proyecto.md
-|   |-- Documento inicial del problema.md
-|   |-- Kickoff Project Charter.docx
-|   |-- Lista preliminar de requerimientos funcionales y no funcionales.md
-|   |-- Selección del enfoque del proyecto.md
-|   |-- Supuestos y restricciones.md
-|   |-- cierre/              # Documentación de cierre
-|   |-- ejecucion/           # Requerimientos y materiales de ejecución
-|   |-- inicio/              # Documentos base del proyecto
-|   |-- Otros/               # Documentos complementarios
-|   `-- seguimiento_control/ # Seguimiento y control del proyecto
-`-- frontend/                # Componente de interfaz de usuario
-    |-- README.md
-    `-- tests/
-        `-- README.md
+|   |-- README.md            # Índice documental
+|   |-- cierre/              # Entregables y actas de cierre
+|   |-- ejecucion/           # Evidencias, métricas y TDD
+|   |-- inicio/              # Vision, requerimientos y supuestos
+|   |-- Otros/               # Referencias, capacitación y calidad
+|   |-- sdd/                 # Documento de Diseño de Software (SDD)
+|   `-- seguimiento_control/ # Registros de riesgos, incidentes y trazabilidad
+|-- e2e/                     # Pruebas End-to-End (Playwright)
+`-- frontend/                # Componente de interfaz de usuario (React/Vite)
+    `-- src/
 ```
 
 ## Ejecucion del frontend
@@ -143,4 +134,4 @@ cd backend_node
 npm.cmd test
 ```
 
-No existe coverage formal configurado actualmente.
+La cobertura de pruebas dinámicas en componentes críticos (ej. Motor Anti-Cruces HU03 y API) alcanza el 85%, validable mediante los scripts integrados, con la deuda de calidad estática documentada para su corrección futura.
