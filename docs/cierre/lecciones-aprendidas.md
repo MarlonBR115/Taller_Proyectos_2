@@ -261,6 +261,3 @@ La separación clara de responsabilidades, la cohesión del equipo y el enfoque 
 
 Se recomienda que los equipos futuros adopten las prácticas documentadas en la sección 9 de este informe, especialmente la definición temprana de contratos API y la configuración de herramientas de calidad desde el Sprint 0.
 
----
-
-— _Fin del Informe de Lecciones Aprendidas_ —
