@@ -61,17 +61,17 @@ El objetivo general es implementar un sistema completo y robusto para la resoluc
 ## Documentacion principal
 
 - [Indice documental](docs/README.md)
-- [Vision general](docs/01_vision_general.md)
-- [Mapa del proceso academico](docs/02_mapa_proceso_academico.md)
-- [Requerimientos](docs/03_requerimientos.md)
-- [Supuestos y restricciones](docs/04_supuestos_y_restricciones.md)
+- [Vision general](docs/inicio/01_vision_general.md)
+- [Mapa del proceso academico](docs/inicio/02_mapa_proceso_academico.md)
+- [Requerimientos](docs/inicio/03_requerimientos.md)
+- [Supuestos y restricciones](docs/inicio/04_supuestos_y_restricciones.md)
 - [SDD](docs/sdd/README.md)
 - [Ejecucion y evidencias](docs/ejecucion/README.md)
 - [Seguimiento y control](docs/seguimiento_control/README.md)
-- [Calidad y auditoria AT002](docs/calidad/README.md)
-- [Capacitacion y transferencia](docs/capacitacion/README.md)
+- [Calidad y auditoria AT002](docs/Otros/calidad/README.md)
+- [Capacitacion y transferencia](docs/Otros/capacitacion/README.md)
 - [Control y cierre](docs/cierre/README.md)
-- [Investigacion base](docs/referencias/01_investigacion_base.md)
+- [Investigacion base](docs/Otros/referencias/01_investigacion_base.md)
 
 ## Estado del proyecto
 

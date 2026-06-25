@@ -19,4 +19,4 @@ Esta carpeta consolida la evaluacion final del proyecto, las lecciones aprendida
 - [Impedimentos](../seguimiento_control/04_Registro_de_Impedimentos.md)
 - [Defectos](../seguimiento_control/06_Registro_de_Defectos.md)
 - [Supuestos](../seguimiento_control/07_Registro_de_Supuestos.md)
-- [Capacitacion](../capacitacion/README.md)
+- [Capacitacion](../Otros/capacitacion/README.md)

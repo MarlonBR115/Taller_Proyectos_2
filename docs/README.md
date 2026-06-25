@@ -6,18 +6,18 @@ Este indice es la puerta de entrada a la documentacion academica y tecnica del p
 
 | Documento | Proposito |
 |---|---|
-| [01_vision_general.md](01_vision_general.md) | Vision vigente del proyecto como plataforma academica semiautomatica. |
-| [02_mapa_proceso_academico.md](02_mapa_proceso_academico.md) | Mapa integral del proceso academico: oferta, docentes, aulas, horarios, validacion, revision humana y KPI. |
-| [Documento inicial del problema](Documento%20inicial%20del%20problema.md) | Contexto historico del problema. |
-| [Declaracion de vision original](Declaraci%C3%B3n%20de%20la%20visi%C3%B3n%20del%20proyecto.md) | Vision inicial del proyecto. |
+| [01_vision_general.md](inicio/01_vision_general.md) | Vision vigente del proyecto como plataforma academica semiautomatica. |
+| [02_mapa_proceso_academico.md](inicio/02_mapa_proceso_academico.md) | Mapa integral del proceso academico: oferta, docentes, aulas, horarios, validacion, revision humana y KPI. |
+| [Documento inicial del problema](inicio/Documento%20inicial%20del%20problema.md) | Contexto historico del problema. |
+| [Declaracion de vision original](inicio/Declaraci%C3%B3n%20de%20la%20visi%C3%B3n%20del%20proyecto.md) | Vision inicial del proyecto. |
 
 ## 2. Requerimientos y restricciones
 
 | Documento | Proposito |
 |---|---|
-| [03_requerimientos.md](03_requerimientos.md) | Requerimientos implementados, propuestos y fuera de alcance. |
-| [04_supuestos_y_restricciones.md](04_supuestos_y_restricciones.md) | Supuestos academicos, tecnicos, de datos, operativos y restricciones. |
-| [Seleccion del enfoque](Selecci%C3%B3n%20del%20enfoque%20del%20proyecto.md) | Enfoque metodologico y tecnico inicial. |
+| [03_requerimientos.md](inicio/03_requerimientos.md) | Requerimientos implementados, propuestos y fuera de alcance. |
+| [04_supuestos_y_restricciones.md](inicio/04_supuestos_y_restricciones.md) | Supuestos academicos, tecnicos, de datos, operativos y restricciones. |
+| [Seleccion del enfoque](inicio/Selecci%C3%B3n%20del%20enfoque%20del%20proyecto.md) | Enfoque metodologico y tecnico inicial. |
 
 ## 3. SDD
 
@@ -55,7 +55,7 @@ Este indice es la puerta de entrada a la documentacion academica y tecnica del p
 
 | Documento | Proposito |
 |---|---|
-| [Capacitacion README](capacitacion/README.md) | Ruta de aprendizaje para instalar, operar, probar y mantener el sistema. |
+| [Capacitacion README](Otros/capacitacion/README.md) | Ruta de aprendizaje para instalar, operar, probar y mantener el sistema. |
 
 ## 7. Calidad
 
@@ -65,7 +65,7 @@ Este indice es la puerta de entrada a la documentacion academica y tecnica del p
 | [Evidencia de integracion API](ejecucion/evidencia-tests-integracion-api.md) | Evidencia de pruebas API con Supertest. |
 | [Impedimentos de calidad](seguimiento_control/04_Registro_de_Impedimentos.md) | Coverage, SonarQube, WCAG y SUS pendientes o en integracion. |
 
-Consultar `docs/calidad/` cuando la rama AT002 este integrada al flujo principal.
+Consultar `docs/Otros/calidad/` cuando la rama AT002 este integrada al flujo principal.
 
 ## 8. Control y cierre
 
@@ -79,14 +79,14 @@ Consultar `docs/calidad/` cuando la rama AT002 este integrada al flujo principal
 
 | Documento | Proposito |
 |---|---|
-| [Referencias README](referencias/README.md) | Indice de referencias. |
-| [Investigacion base](referencias/01_investigacion_base.md) | Conceptos y sistemas de referencia. |
+| [Referencias README](Otros/referencias/README.md) | Indice de referencias. |
+| [Investigacion base](Otros/referencias/01_investigacion_base.md) | Conceptos y sistemas de referencia. |
 
 ## 10. Calidad y auditoria
 
 | Documento | Proposito |
 |---|---|
-| [Calidad AT002](calidad/README.md) | Preparacion de SonarQube, OWASP, WCAG, SUS, testing y cobertura. |
+| [Calidad AT002](Otros/calidad/README.md) | Preparacion de SonarQube, OWASP, WCAG, SUS, testing y cobertura. |
 
 ## 11. Documentos historicos
 

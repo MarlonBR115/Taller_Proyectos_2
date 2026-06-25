@@ -14,7 +14,8 @@ Controlar condiciones aceptadas para planificar y operar el prototipo. La explic
 | SUP-06 | GitHub y Jira se usan para trazabilidad | Gestion | Cambios y decisiones quedan sin relacion formal | Matriz documental creada | Parcial | `03_Trazabilidad_Jira_GitHub.md` |
 | SUP-07 | Matricula completa/student sectioning no es nucleo actual | Alcance | Podria evaluarse el prototipo contra funciones no implementadas | Alcance aclarado documentalmente | Validado | Vision, requerimientos y mapa |
 | SUP-08 | Coverage y quality gates se consolidaran despues de integrar AT002 | Calidad | Metricas pueden variar entre ramas | Redaccion condicional aplicada | Pendiente | IMP-03; capacitacion |
-
+| SUP-09 | La aprobación del proyecto exige que todo el equipo asista a las presentaciones | Operativo | Si falta un miembro, no solo pierde él, sino que afecta la imagen y la calificación de todo el grupo | Confirmaciones de asistencia a hitos | Vigente | Reglas del Equipo |
+| SUP-10 | El proyecto se evalúa tanto por su funcionamiento como por su nivel de seguridad | Calidad | Tener pruebas que funcionen perfecto no servirá de mucho si los reportes de seguridad y calidad de código son deficientes | Requerimientos del proyecto | Vigente | Criterios de aceptación |
 ## Revision
 
 Los supuestos deben revisarse cuando cambie el entorno, alcance, fuente de datos o estrategia de calidad. Si un supuesto deja de cumplirse, debe convertirse en riesgo, impedimento o cambio de alcance.
