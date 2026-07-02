@@ -6,7 +6,8 @@ const greenMiddleware = require('./middlewares/greenMiddleware');
 function createApp(pool) {
     const app = express();
     app.use(cors({ exposedHeaders: ['X-Carbon-Footprint-Grams', 'X-Response-Bytes'] }));
-    app.use(express.json());
+    app.use(express.json({ limit: '50mb' }));
+    app.use(express.urlencoded({ limit: '50mb', extended: true }));
     app.use(greenMiddleware);
 
     const queryDB = async (sql, params = []) => {
@@ -279,6 +280,24 @@ function createApp(pool) {
         } catch (err) {
             console.error("Error en algoritmo Node:", err);
             res.status(500).json({ success: false, message: 'Error critico en el motor', details: err.message });
+        }
+    });
+
+    app.post('/api/schedule/save', async (req, res) => {
+        try {
+            const { schedules } = req.body;
+            if (!schedules || !Array.isArray(schedules)) {
+                return res.status(400).json({ success: false, message: 'Formato de horario invalido' });
+            }
+            const term = await queryDB("SELECT id FROM academic_terms WHERE is_active = true LIMIT 1");
+            if (term.length === 0) return res.status(400).json({ success: false, message: 'No hay un periodo activo' });
+            
+            const generator = new GeneratorService(pool);
+            const result = await generator.saveSchedules(term[0].id, schedules);
+            res.json(result);
+        } catch (err) {
+            console.error("Error guardando horario:", err);
+            res.status(500).json({ success: false, message: 'Error al guardar horario', details: err.message });
         }
     });
 

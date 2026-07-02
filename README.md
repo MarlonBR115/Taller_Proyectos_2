@@ -1,9 +1,28 @@
 # Sistema de Generacion Optima de Horarios Academicos en Entornos de Curriculo Flexible
 
 ![Estado: Prototipo Consolidado (Fase Cierre)](https://img.shields.io/badge/Estado-Consolidado%20(Cierre)-blue)
+![Versión: v1.0.0 (PMV)](https://img.shields.io/badge/Versi%C3%B3n-v1.0.0%20(PMV)-blueviolet)
 ![Curso: Taller de Proyectos 2](https://img.shields.io/badge/Curso-Taller%20de%20Proyectos%202-brightgreen)
 
+## 🎥 Video Demostrativo
+> **[ ENLACE AL VIDEO DEMOSTRATIVO AQUÍ ]** *(Asegúrate de reemplazar este texto con el link de tu video)*
+
 El sistema genera, valida, mide y recomienda. No reemplaza totalmente la intervencion humana: coordinadores, responsables de horarios, docentes y registro academico conservan la revision de excepciones, aprobacion final y control de cambios.
+
+## 👥 Equipo de Trabajo
+
+![Foto del equipo](docs/Otros/fotos/foto_equipo.jpeg)
+
+**Integrantes del Proyecto:**
+- Bonifacio Rojas, Marlon
+- Espíritu Campos, Alejandro
+- Fernández Durán, Rafael
+- Guzmán Choque, Fabián
+- Quispe Campos, Luis Enrique
+
+---
+
+## 📑 Índice
 
 1. [Descripción General](#1-descripción-general)
 2. [Problemática Abordada](#2-problemática-abordada)
@@ -53,7 +72,7 @@ El objetivo general es implementar un sistema completo y robusto para la resoluc
 |---|---|---|
 | API backend | `backend_node/server.js` | CRUD y endpoint de generacion. |
 | Orquestador | `backend_node/GeneratorService.js` | Conecta datos MySQL con el motor CSP. |
-| Motor CSP | `backend_node/src/services/CSPMotor.js` | Backtracking con restricciones y heuristicas. |
+| Motor CSP | `backend_node/src/services/CSPMotor.js` | Algoritmo Fast Greedy con generación de múltiples alternativas interactivas. |
 | Motor Anti-Cruces HU03 | `backend_node/src/services/motorAntiCruces.js` | Validacion de cruces, advertencias y metricas. |
 | Pruebas HU03 | `backend_node/tests/motorAntiCruces.test.js` | Pruebas unitarias con `node:test`. |
 | Frontend | `frontend/src/` | Gestion y visualizacion base. |
@@ -76,7 +95,7 @@ El objetivo general es implementar un sistema completo y robusto para la resoluc
 ## 5. Estado Actual y Cierre
 El proyecto ha completado su fase de desarrollo activo del prototipo y se encuentra en etapa de **Control y Cierre**. Se ha consolidado un núcleo funcional que permite:
 
-- **Generación de horarios:** Mediante un motor de optimización CSP.
+- **Generación de horarios:** Mediante un motor de optimización CSP (Fast Greedy) capaz de generar múltiples alternativas (opciones) de horarios para facilitar la toma de decisiones.
 - **Validación anti-cruces:** Implementación de reglas y restricciones comprobadas mediante pruebas (HU03).
 - **Gestión frontend/backend:** Integración con API REST (Node.js) y visualización en React.
 - **Trazabilidad y Calidad:** Ejecución del 100% del tiempo estimado (13 semanas), cumplimiento estricto del presupuesto (S/ 11,706) y documentación exhaustiva (incluyendo actas de cierre, SDD y registros de riesgos).

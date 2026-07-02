@@ -4,6 +4,7 @@ class CSPOptimizer {
     this.teachers = inputData.teachers;
     this.rooms = inputData.rooms;
     this.settings = inputData.settings;
+    this.randomize = inputData.settings.randomize || false;
     
     this.scheduleMatrix = {};
     this.teacherSchedule = {};
@@ -13,6 +14,27 @@ class CSPOptimizer {
     // A003-02: Heurística MRV (Minimum Remaining Values)
     // Ordenamos los grupos de más restrictivo a menos restrictivo antes de asignar.
     this.sortGroupsByMRV();
+    
+    // Optimizaciones de Rendimiento
+    this.preProcessTeachers();
+    this.cachedSlots = {};
+  }
+
+  preProcessTeachers() {
+    this.teacherAvailabilityMap = {};
+    for (const teacher of this.teachers) {
+      if (!teacher.availability) {
+        this.teacherAvailabilityMap[teacher.id] = null;
+        continue;
+      }
+      try {
+        let shifts = typeof teacher.availability === 'string' ? JSON.parse(teacher.availability) : teacher.availability;
+        if (typeof shifts === 'string') shifts = JSON.parse(shifts);
+        this.teacherAvailabilityMap[teacher.id] = Array.isArray(shifts) ? shifts : null;
+      } catch(e) {
+        this.teacherAvailabilityMap[teacher.id] = null;
+      }
+    }
   }
 
   sortGroupsByMRV() {
@@ -30,8 +52,7 @@ class CSPOptimizer {
   }
 
   isValidAssignment(group, room, day, timeSlots) {
-    if (room.capacity < group.quota) return false;
-    if (room.room_type !== group.room_type_required) return false;
+    // La capacidad y tipo de aula ya se filtraron previamente (Reducción de Dominio)
     
     for (const slot of timeSlots) {
       const roomKey = `${room.id}_${day}_${slot}`;
@@ -47,18 +68,8 @@ class CSPOptimizer {
   }
 
   isTeacherAvailable(teacherId, slot) {
-    const teacher = this.teachers.find(t => t.id === teacherId);
-    if (!teacher || !teacher.availability) return true;
-    
-    let shifts = [];
-    try {
-        shifts = typeof teacher.availability === 'string' ? JSON.parse(teacher.availability) : teacher.availability;
-        if (typeof shifts === 'string') shifts = JSON.parse(shifts);
-    } catch(e) {
-        return true;
-    }
-    
-    if (!Array.isArray(shifts) || shifts.length === 0) return true;
+    const shifts = this.teacherAvailabilityMap[teacherId];
+    if (!shifts || shifts.length === 0) return true;
 
     const hour = parseInt(slot);
     let currentShift = '';
@@ -81,7 +92,10 @@ class CSPOptimizer {
       // Recopilar todas las asignaciones válidas para aplicar LCV (Least Constraining Value)
       let validAssignments = [];
 
-      for (const room of this.rooms) {
+      // Reducción de Dominio (Domain Reduction): Solo iterar por aulas válidas
+      const compatibleRooms = this.rooms.filter(r => r.room_type === group.room_type_required && r.capacity >= group.quota);
+
+      for (const room of compatibleRooms) {
         for (const day of this.settings.allowed_days) {
           
           const availableSlots = this.getAvailableSlotsForDay(day); 
@@ -109,7 +123,11 @@ class CSPOptimizer {
       }
 
       // Ordenar opciones de asignación por score descendente (mejor satisfacción primero)
-      validAssignments.sort((a, b) => b.score - a.score);
+      // Si randomize es true, agregamos ruido aleatorio para explorar soluciones alternativas
+      validAssignments.sort((a, b) => {
+        const noise = this.randomize ? (Math.random() - 0.5) * 4 : 0; // Ruido de +/- 2 puntos
+        return (b.score - a.score) + noise;
+      });
 
       if (validAssignments.length > 0) {
         // Enfoque Greedy: Tomamos la mejor opción inmediatamente y no miramos atrás
@@ -184,6 +202,7 @@ class CSPOptimizer {
   }
 
   getAvailableSlotsForDay(day) {
+    if (this.cachedSlots[day]) return this.cachedSlots[day];
     const start = this.settings.start_time || 8;
     const end = this.settings.end_time || 20;
     
@@ -191,6 +210,7 @@ class CSPOptimizer {
     for (let i = start; i < end; i++) {
       slots.push(i);
     }
+    this.cachedSlots[day] = slots;
     return slots; 
   }
 

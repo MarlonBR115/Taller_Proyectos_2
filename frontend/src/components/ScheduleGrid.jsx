@@ -21,9 +21,12 @@ const API_BASE = 'http://localhost:3000/api';
 const ScheduleGrid = () => {
   const [schedules, setSchedules] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [filterType, setFilterType] = useState('course'); // 'course', 'teacher', 'room'
+  const [filterType, setFilterType] = useState('all'); // 'all', 'course', 'teacher', 'room'
   const [filterValue, setFilterValue] = useState('');
   const [selectedBlock, setSelectedBlock] = useState(null);
+  const [alternatives, setAlternatives] = useState([]);
+  const [selectedAlternativeIndex, setSelectedAlternativeIndex] = useState(0);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     fetchSchedules();
@@ -55,8 +58,13 @@ const ScheduleGrid = () => {
       const data = await res.json();
       
       if (data.success) {
-        alert(data.message || 'Horario generado exitosamente.');
-        fetchSchedules();
+        if (data.alternatives && data.alternatives.length > 0) {
+           setAlternatives(data.alternatives);
+           setSelectedAlternativeIndex(0);
+        } else {
+           alert(data.message || 'Horario generado exitosamente.');
+           fetchSchedules();
+        }
       } else {
         alert('Error: ' + data.message + '\n' + (data.errors ? data.errors.join('\n') : ''));
       }
@@ -67,9 +75,46 @@ const ScheduleGrid = () => {
     }
   };
 
+  const handleSaveAlternative = async () => {
+    if (alternatives.length === 0) return;
+    setIsSaving(true);
+    try {
+       const res = await fetch(`${API_BASE}/schedule/save`, { 
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({ schedules: alternatives[selectedAlternativeIndex].schedules })
+       });
+       const data = await res.json();
+       if (data.success) {
+         alert(data.message || 'Horario guardado exitosamente.');
+         setAlternatives([]);
+         fetchSchedules();
+       } else {
+         alert('Error al guardar: ' + data.message);
+       }
+    } catch (err) {
+       alert('Error de conexión al guardar.');
+    } finally {
+       setIsSaving(false);
+    }
+  };
+
+  const currentSchedulesData = useMemo(() => {
+    if (alternatives.length > 0) {
+       const alt = alternatives[selectedAlternativeIndex].schedules;
+       return alt.map(s => ({
+          ...s,
+          day: s.day_of_week,
+          start_time: parseInt(s.start_time.split(':')[0]),
+          end_time: parseInt(s.end_time.split(':')[0])
+       }));
+    }
+    return schedules;
+  }, [schedules, alternatives, selectedAlternativeIndex]);
+
   const filterOptions = useMemo(() => {
     const options = new Set();
-    schedules.forEach(s => {
+    currentSchedulesData.forEach(s => {
       if (filterType === 'course') options.add(s.course_name);
       if (filterType === 'teacher') options.add(s.teacher_name);
       if (filterType === 'room') options.add(s.room_name);
@@ -77,16 +122,17 @@ const ScheduleGrid = () => {
     const opts = Array.from(options).filter(Boolean);
     if (!opts.includes(filterValue) && opts.length > 0) setFilterValue(opts[0]);
     return opts;
-  }, [schedules, filterType]);
+  }, [currentSchedulesData, filterType]);
 
   const visibleSchedules = useMemo(() => {
-    return schedules.filter(s => {
+    if (filterType === 'all') return currentSchedulesData;
+    return currentSchedulesData.filter(s => {
       if (filterType === 'course') return s.course_name === filterValue;
       if (filterType === 'teacher') return s.teacher_name === filterValue;
       if (filterType === 'room') return s.room_name === filterValue;
       return true;
     });
-  }, [schedules, filterType, filterValue]);
+  }, [currentSchedulesData, filterType, filterValue]);
 
   return (
     <div className="schedule-container">
@@ -96,14 +142,58 @@ const ScheduleGrid = () => {
             <h2>Motor de Generación CSP</h2>
             <p className="text-muted">Visualiza e interactúa con el horario real desde la Base de Datos.</p>
           </div>
-          <button className="btn btn-primary" onClick={handleGenerate} disabled={loading} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            {loading ? <div className="spinner" style={{width: 18, height: 18, border: '2px solid white', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite'}}></div> : <Play size={18} />}
-            {loading ? 'Generando...' : 'Generar Horario'}
-          </button>
+          {!alternatives.length && (
+            <button className="btn btn-primary" onClick={handleGenerate} disabled={loading} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              {loading ? <div className="spinner" style={{width: 18, height: 18, border: '2px solid white', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite'}}></div> : <Play size={18} />}
+              {loading ? 'Generando...' : 'Generar Horario'}
+            </button>
+          )}
         </div>
+
+        {alternatives.length > 0 && (
+          <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+               <h3 style={{ margin: 0, color: 'var(--primary-color)' }}>Modo Previsualización: Elige una Opción</h3>
+               <div style={{ display: 'flex', gap: '10px' }}>
+                 <button className="btn btn-secondary" onClick={() => setAlternatives([])} disabled={isSaving}>Cancelar</button>
+                 <button className="btn btn-primary" onClick={handleSaveAlternative} disabled={isSaving}>
+                   {isSaving ? 'Guardando...' : 'Guardar Alternativa Seleccionada'}
+                 </button>
+               </div>
+            </div>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+               {alternatives.map((alt, idx) => (
+                 <div 
+                   key={alt.id} 
+                   onClick={() => setSelectedAlternativeIndex(idx)}
+                   style={{
+                     padding: '1rem', 
+                     cursor: 'pointer',
+                     border: selectedAlternativeIndex === idx ? '2px solid var(--primary-color)' : '1px solid var(--border-color)',
+                     borderRadius: '8px',
+                     background: selectedAlternativeIndex === idx ? 'rgba(var(--primary-color-rgb), 0.1)' : 'transparent',
+                     flex: 1,
+                     minWidth: '200px'
+                   }}
+                 >
+                   <h4 style={{ margin: '0 0 0.5rem 0' }}>{alt.name}</h4>
+                   <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                     <div>Asignaciones: {alt.metrics?.assigned_groups} / {alt.metrics?.total_groups}</div>
+                     <div>Validación: {alt.metrics?.validation_score}%</div>
+                     {alt.unassigned_groups?.length > 0 && (
+                        <div style={{ color: 'var(--danger-color)', marginTop: '4px' }}>
+                           Faltan {alt.unassigned_groups.length} grupos
+                        </div>
+                     )}
+                   </div>
+                 </div>
+               ))}
+            </div>
+          </div>
+        )}
       </div>
 
-      <div className="glass-panel" style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column' }}>
         <div className="filters-bar">
           <Filter size={18} color="var(--text-muted)" />
           <select 
@@ -111,22 +201,25 @@ const ScheduleGrid = () => {
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
           >
+            <option value="all">Ver Todo</option>
             <option value="course">Filtrar por Materia</option>
             <option value="teacher">Filtrar por Profesor</option>
             <option value="room">Filtrar por Aula</option>
           </select>
           
-          <select 
-            className="filter-select"
-            value={filterValue}
-            onChange={(e) => setFilterValue(e.target.value)}
-          >
-            {filterOptions.length === 0 ? <option>No hay datos</option> : filterOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-          </select>
+          {filterType !== 'all' && (
+            <select 
+              className="filter-select"
+              value={filterValue}
+              onChange={(e) => setFilterValue(e.target.value)}
+            >
+              {filterOptions.length === 0 ? <option>No hay datos</option> : filterOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </select>
+          )}
         </div>
 
-        <div className="grid-wrapper">
-          <div className="schedule-grid">
+        <div className="grid-wrapper" style={{ overflowX: 'auto', paddingBottom: '10px' }}>
+          <div className="schedule-grid" style={{ minWidth: '800px' }}>
             <div className="grid-header">
               <div className="grid-header-cell" style={{ zIndex: 3 }}>Hora</div>
               {DAYS.map(day => (

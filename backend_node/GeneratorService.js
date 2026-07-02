@@ -24,8 +24,6 @@ class GeneratorService {
         }
         const termId = termRows[0].id;
 
-        await this.pool.execute("DELETE FROM schedules WHERE term_id = ?", [termId]);
-
         const [groups] = await this.pool.execute(`
             SELECT sg.*, c.weekly_hours, c.name as course_name 
             FROM student_groups sg 
@@ -61,97 +59,112 @@ class GeneratorService {
             }
         };
 
-        const optimizer = new CSPOptimizer(inputData);
-        console.log("Iniciando Motor CSP Optimizado (Fast Greedy)...");
-        const assignments = optimizer.solve();
+        const numAlternatives = 3;
 
-        if (!assignments || assignments.length === 0) {
-            return {
-                success: false,
-                message: 'Error de Optimización: No se pudo asignar ningún grupo (posible falta total de recursos).',
-                errors: ['No se encontró solución parcial viable.'],
-                total_assigned: 0
-            };
-        }
+        const alternativePromises = Array.from({ length: numAlternatives }).map((_, i) => {
+            return new Promise((resolve) => {
+                setImmediate(() => {
+                    const optimizer = new CSPOptimizer({
+                        ...inputData,
+                        settings: {
+                            ...inputData.settings,
+                            randomize: true
+                        }
+                    });
+                    console.log(`Iniciando Motor CSP (Alternativa ${i + 1})...`);
+                    const assignments = optimizer.solve();
 
-        console.log(`Greedy CSP encontró solución con ${assignments.length} asignaciones. Grupos sin asignar: ${optimizer.unassignedGroups.length}. Guardando en BD...`);
+                    // Formatear asignaciones para frontend y validación
+                    const formattedAssignments = assignments.map(a => ({
+                        group_id: a.group.id,
+                        course_id: a.group.course_id,
+                        teacher_id: a.group.teacher_id,
+                        room_id: a.room.id,
+                        day_of_week: a.day,
+                        start_time: `${a.start_time.toString().padStart(2, '0')}:00:00`,
+                        end_time: `${a.end_time.toString().padStart(2, '0')}:00:00`,
+                        // Campos extra visuales
+                        course_name: a.group.course_name,
+                        teacher_name: teachers.find(t => t.id === a.group.teacher_id)?.name,
+                        room_name: a.room.name,
+                        capacidad_aula: a.room.capacity,
+                        tipo_aula: a.room.room_type,
+                        quota: a.group.quota
+                    }));
 
-        for (const assignment of assignments) {
-            const startStr = `${assignment.start_time.toString().padStart(2, '0')}:00:00`;
-            const endStr = `${assignment.end_time.toString().padStart(2, '0')}:00:00`;
+                    let validation = null;
+                    try {
+                        const horarioValidar = formattedAssignments.map((s, index) => ({
+                            id: `TEMP_${i}_${index}`,
+                            docenteId: s.teacher_id,
+                            aulaId: s.room_id,
+                            grupoId: s.group_id,
+                            cursoId: s.course_id,
+                            dia: s.day_of_week,
+                            horaInicio: s.start_time,
+                            horaFin: s.end_time,
+                            capacidadAula: s.capacidad_aula,
+                            estudiantesEstimados: s.quota,
+                            tipoAula: s.tipo_aula,
+                            tipoSesion: 'theory',
+                            profesor: s.teacher_name,
+                            aula: s.room_name,
+                            materia: s.course_name
+                        }));
 
-            await this.pool.execute(
-                "INSERT INTO schedules (term_id, group_id, room_id, day_of_week, start_time, end_time) VALUES (?, ?, ?, ?, ?, ?)",
-                [termId, assignment.group.id, assignment.room.id, assignment.day, startStr, endStr]
-            );
-        }
+                        const validadorResult = validarAntiCruces(this.adaptarHorariosParaValidacion(horarioValidar));
+                        validation = {
+                            valido: validadorResult.valido,
+                            totalConflictos: validadorResult.totalConflictos,
+                            totalAdvertencias: validadorResult.totalAdvertencias,
+                            metricas: validadorResult.metricas
+                        };
+                    } catch(e) {
+                        console.error("Error en validador anti-cruces:", e);
+                    }
 
-        let validation = null;
+                    const response = optimizer.buildResponse(assignments);
+                    
+                    resolve({
+                        id: `alt_${i + 1}`,
+                        name: `Opción ${i + 1}`,
+                        schedules: formattedAssignments,
+                        metrics: {
+                            ...response.metrics,
+                            validation_score: validation && validation.valido ? 100 : (validation ? Math.max(0, 100 - validation.totalConflictos * 5) : 0),
+                        },
+                        validation,
+                        unassigned_groups: response.unassigned_groups
+                    });
+                });
+            });
+        });
 
-        try {
-            const [finalSchedules] = await this.pool.execute(`
-                SELECT s.*,
-                       sg.teacher_id,
-                       sg.course_id,
-                       sg.quota,
-                       r.name as aula,
-                       r.capacity as capacidad_aula,
-                       r.room_type as tipo_aula,
-                       c.name as materia,
-                       t.name as profesor
-                FROM schedules s
-                JOIN student_groups sg ON s.group_id = sg.id
-                JOIN courses c ON sg.course_id = c.id
-                JOIN teachers t ON sg.teacher_id = t.id
-                JOIN rooms r ON s.room_id = r.id
-                WHERE s.term_id = ?
-            `, [termId]);
+        const alternatives = await Promise.all(alternativePromises);
 
-            const horarioValidar = finalSchedules.map(s => ({
-                id: s.id,
-                docenteId: s.teacher_id,
-                aulaId: s.room_id,
-                grupoId: s.group_id,
-                cursoId: s.course_id,
-                dia: s.day_of_week,
-                horaInicio: s.start_time,
-                horaFin: s.end_time,
-                capacidadAula: s.capacidad_aula,
-                estudiantesEstimados: s.quota,
-                tipoAula: s.tipo_aula,
-                tipoSesion: 'theory',
-                profesor: s.profesor,
-                aula: s.aula,
-                materia: s.materia
-            }));
-
-            const validadorResult = validarAntiCruces(this.adaptarHorariosParaValidacion(horarioValidar));
-            validation = {
-                valido: validadorResult.valido,
-                totalConflictos: validadorResult.totalConflictos,
-                totalAdvertencias: validadorResult.totalAdvertencias,
-                metricas: validadorResult.metricas
-            };
-
-            if (!validadorResult.valido) {
-                console.warn("Validador Anti-Cruces detecto conflictos:", validadorResult.totalConflictos);
-            } else {
-                console.log("Validador Anti-Cruces: horario libre de conflictos duros.");
-            }
-        } catch(e) {
-            console.error("Error en validador anti-cruces:", e);
-        }
-
-        const response = optimizer.buildResponse(assignments);
         return {
             success: true,
-            message: response.message,
-            errors: [],
-            total_assigned: response.metrics.assigned_groups,
-            unassigned_groups: response.unassigned_groups,
-            metrics: response.metrics,
-            validation
+            message: 'Alternativas generadas exitosamente.',
+            alternatives
         };
+    }
+
+    async saveSchedules(termId, schedules) {
+        // Envolver en una simulación de transacción manual
+        try {
+            await this.pool.execute("DELETE FROM schedules WHERE term_id = ?", [termId]);
+            
+            for (const s of schedules) {
+                await this.pool.execute(
+                    "INSERT INTO schedules (term_id, group_id, room_id, day_of_week, start_time, end_time) VALUES (?, ?, ?, ?, ?, ?)",
+                    [termId, s.group_id, s.room_id, s.day_of_week, s.start_time, s.end_time]
+                );
+            }
+            return { success: true, message: 'Horario guardado correctamente en la base de datos.' };
+        } catch (error) {
+            console.error("Error guardando horario:", error);
+            throw new Error("Fallo al guardar el horario: " + error.message);
+        }
     }
 }
 
