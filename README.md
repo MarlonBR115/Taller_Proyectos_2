@@ -4,11 +4,6 @@
 ![Versión: v1.0.0 (PMV)](https://img.shields.io/badge/Versi%C3%B3n-v1.0.0%20(PMV)-blueviolet)
 ![Curso: Taller de Proyectos 2](https://img.shields.io/badge/Curso-Taller%20de%20Proyectos%202-brightgreen)
 
-## 🎥 Video Demostrativo
-[🎥 Ver Video Demostrativo del Sistema (MP4)](docs/Otros/Proyecto/video_proyecto.mp4)
-
-El sistema genera, valida, mide y recomienda. No reemplaza totalmente la intervencion humana: coordinadores, responsables de horarios, docentes y registro academico conservan la revision de excepciones, aprobacion final y control de cambios.
-
 ## 👥 Equipo de Trabajo
 
 ![Foto del equipo](docs/Otros/Proyecto/foto_equipo.jpeg)
@@ -19,6 +14,11 @@ El sistema genera, valida, mide y recomienda. No reemplaza totalmente la interve
 - Fernández Durán, Rafael
 - Guzmán Choque, Fabián
 - Quispe Campos, Luis Enrique
+
+## 🎥 Video Demostrativo
+[🎥 Ver Video Demostrativo del Sistema (MP4)](docs/Otros/Proyecto/video_proyecto.mp4)
+
+El sistema genera, valida, mide y recomienda. No reemplaza totalmente la intervencion humana: coordinadores, responsables de horarios, docentes y registro academico conservan la revision de excepciones, aprobacion final y control de cambios.
 
 ---
 
