@@ -5,13 +5,13 @@
 ![Curso: Taller de Proyectos 2](https://img.shields.io/badge/Curso-Taller%20de%20Proyectos%202-brightgreen)
 
 ## 🎥 Video Demostrativo
-> **[ ENLACE AL VIDEO DEMOSTRATIVO AQUÍ ]** *(Asegúrate de reemplazar este texto con el link de tu video)*
+[🎥 Ver Video Demostrativo del Sistema (MP4)](docs/Otros/Proyecto/video_proyecto.mp4)
 
 El sistema genera, valida, mide y recomienda. No reemplaza totalmente la intervencion humana: coordinadores, responsables de horarios, docentes y registro academico conservan la revision de excepciones, aprobacion final y control de cambios.
 
 ## 👥 Equipo de Trabajo
 
-![Foto del equipo](docs/Otros/fotos/foto_equipo.jpeg)
+![Foto del equipo](docs/Otros/Proyecto/foto_equipo.jpeg)
 
 **Integrantes del Proyecto:**
 - Bonifacio Rojas, Marlon
