@@ -16,7 +16,8 @@
 - Quispe Campos, Luis Enrique
 
 ## 🎥 Video Demostrativo
-[🎥 Ver Video Demostrativo del Sistema (MP4)](docs/Otros/Proyecto/video_proyecto.mp4)
+
+[![Ver Video Demostrativo](https://img.youtube.com/vi/fatllT9Y3DI/maxresdefault.jpg)](https://youtu.be/fatllT9Y3DI)
 
 El sistema genera, valida, mide y recomienda. No reemplaza totalmente la intervencion humana: coordinadores, responsables de horarios, docentes y registro academico conservan la revision de excepciones, aprobacion final y control de cambios.
 
